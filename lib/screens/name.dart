@@ -1,9 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/common/common.dart';
+import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
-import 'package:kkm/screens/bottom/home.dart';
+import 'package:http/http.dart' as http;
+import 'package:kpostal/kpostal.dart';
+import 'package:provider/provider.dart';
 
 class Name extends StatefulWidget {
   const Name({super.key});
@@ -15,7 +19,31 @@ class Name extends StatefulWidget {
 class _NameState extends State<Name> {
   final _nameController = TextEditingController();
 
-  void FlutterDialog() {
+  String postCode = '-';
+  String address = '-';
+  String latitude = '-';
+  String longitude = '-';
+  String kakaoLatitude = '-';
+  String kakaoLongitude = '-';
+  
+
+  void postrequest(var userdata) async {
+    try {
+      
+      
+      String url = 'http://3.38.220.42:3031/join/user';
+     
+      // http.Response response =
+      //     await http.post(Uri.parse(url), body: <String, String>{});
+
+      // userdata.inputAccessToken();
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void FlutterDialog(var userdata) {
     showDialog(
         context: context,
         //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -70,16 +98,34 @@ class _NameState extends State<Name> {
             ),
             actions: <Widget>[
               ElevatedButton(
-                child: const Text("확인"),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Bottombar()));
-                },
-              ),
-              ElevatedButton(
                 child: const Text("취소"),
                 onPressed: () {
                   Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: const Text("확인"),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => KpostalView(
+        useLocalServer: true,
+        localPort: 1024,
+        kakaoKey: 'bef258d41292f6783323f982c395e203',
+        callback: (Kpostal result) {
+                        setState(() {
+                          postCode = result.postCode;
+                          address = result.address;
+                          latitude = result.latitude.toString();
+                          longitude = result.longitude.toString();
+                          kakaoLatitude = result.kakaoLatitude.toString();
+                          kakaoLongitude =
+                              result.kakaoLongitude.toString();
+                        });
+                      },
+      )));
+                  // postrequest(userdata);
+
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (_) => const Bottombar()));
                 },
               ),
             ],
@@ -89,6 +135,7 @@ class _NameState extends State<Name> {
 
   @override
   Widget build(BuildContext context) {
+    var userData = Provider.of<UserData>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -189,7 +236,7 @@ class _NameState extends State<Name> {
                         ? null
                         : () {
                             print("실행됨");
-                            FlutterDialog();
+                            FlutterDialog(userData);
                           },
                     child: Text(
                       "다음",
