@@ -1,10 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kkm/model/login_platform.dart';
+import 'package:kkm/provider/user.dart';
+import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kkm/screens/name.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 void main() {
+  KakaoSdk.init(nativeAppKey: 'bef258d41292f6783323f982c395e203');
   runApp(const MyApp());
 }
 
@@ -16,14 +26,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
-    return ScreenUtilInit(
-      //screenutil 라이브러리 (뒤에 .h, .w, .r, .sp등등 크기를 반응형으로 만들어줌)
-      designSize: const Size(360, 800), // 어떤 사이즈를 기준으로 만들것인가
-      builder: (BuildContext context, Widget? child) => const MaterialApp(
-          title: 'Welcome',
-          debugShowCheckedModeBanner: false,
-          home: Login() // widget/bottombar.dart 코드
-          ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: UserData()),
+      ],
+      child: ScreenUtilInit(
+        //screenutil 라이브러리 (뒤에 .h, .w, .r, .sp등등 크기를 반응형으로 만들어줌)
+        designSize: const Size(360, 800), // 어떤 사이즈를 기준으로 만들것인가
+        builder: (BuildContext context, Widget? child) => const MaterialApp(
+            title: '꼬꼬막', debugShowCheckedModeBanner: false, home: Login()),
+      ),
     );
   }
 }
@@ -36,8 +48,95 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool success = false;
+  String imageurl = "";
+  String id = "";
+
+  void errormessage(var error) {
+    Fluttertoast.showToast(
+        msg: "카카오톡으로 로그인 실패 $error",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
+  void successmessage() {
+    Fluttertoast.showToast(
+        msg: "환영합니다!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
+  void postrequest(var userdata) async {
+    try {
+      String url = 'http://3.38.220.42:3031/user/kakaoLogin?k_id=$id';
+      http.Response response =
+          await http.post(Uri.parse(url), body: <String, String>{});
+      var responseBody = utf8.decode(response.bodyBytes);
+      print(responseBody);
+      if (responseBody == "guest") {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Name()));
+      } else {
+        userdata.inputAccessToken(response);
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Bottombar()));
+        successmessage();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // ignore: prefer_final_fields
+  LoginPlatform _loginPlatform = LoginPlatform.none;
+
+  void signInWithKakao(var userdata) async {
+    try {
+      bool isInstalled = await isKakaoTalkInstalled();
+
+      OAuthToken token = isInstalled
+          ? await UserApi.instance.loginWithKakaoTalk()
+          : await UserApi.instance.loginWithKakaoAccount();
+
+      final url = Uri.https('kapi.kakao.com', '/v2/user/me');
+
+      final response = await http.get(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
+        },
+      );
+
+      final profileInfo = json.decode(response.body);
+      print(profileInfo.toString());
+      imageurl = "${profileInfo['properties']['profile_image']}";
+      id = "${profileInfo['id']}";
+      // userdata.inputId(id);
+      // userdata.inputImage(imageurl);
+
+      setState(() {
+        _loginPlatform = LoginPlatform.kakao;
+        success = true;
+      });
+      postrequest(userdata);
+    } catch (error) {
+      errormessage(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var userData = Provider.of<UserData>(context);
     return Scaffold(
       appBar: null,
       body: Center(
@@ -69,8 +168,7 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => const Name()));
+                  signInWithKakao(userData);
                 },
                 child: Row(
                   children: [
@@ -97,7 +195,7 @@ class _LoginState extends State<Login> {
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w400,
                   color: const Color(0xffBEBEBE)),
-            )
+            ),
           ],
         ),
       ),
