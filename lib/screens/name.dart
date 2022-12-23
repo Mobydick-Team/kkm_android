@@ -109,7 +109,7 @@ class _NameState extends State<Name> {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => KpostalView(
         useLocalServer: true,
         localPort: 1024,
-        kakaoKey: 'bef258d41292f6783323f982c395e203',
+        kakaoKey: 'bef258d41292f6783323f982c395e203', //api키 native 키가 아닌 javascript 키로 바꾸기
         callback: (Kpostal result) {
                         setState(() {
                           postCode = result.postCode;
