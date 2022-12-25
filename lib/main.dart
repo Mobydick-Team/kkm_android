@@ -11,6 +11,7 @@ import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kkm/screens/name.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:http/http.dart' as http;
+import 'package:kkm/screens/test.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -84,7 +85,7 @@ class _LoginState extends State<Login> {
       if (responseBody == "guest") {
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const Name()));
+            context, MaterialPageRoute(builder: (_) =>const Name()));
       } else {
         userdata.inputAccessToken(response);
         // ignore: use_build_context_synchronously
@@ -121,8 +122,8 @@ class _LoginState extends State<Login> {
       print(profileInfo.toString());
       imageurl = "${profileInfo['properties']['profile_image']}";
       id = "${profileInfo['id']}";
-      // userdata.inputId(id);
-      // userdata.inputImage(imageurl);
+      userdata.inputId(id);
+      userdata.inputImage(imageurl);
 
       setState(() {
         _loginPlatform = LoginPlatform.kakao;
