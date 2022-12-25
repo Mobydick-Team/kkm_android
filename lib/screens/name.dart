@@ -1,13 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kkm/common/common.dart';
+import 'package:kkm/data/my_loaction.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:http/http.dart' as http;
 import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
 
 class Name extends StatefulWidget {
   const Name({super.key});
@@ -21,26 +22,69 @@ class _NameState extends State<Name> {
 
   String postCode = '-';
   String address = '-';
-  String latitude = '-';
-  String longitude = '-';
+  double latitude = 0;
+  double longitude = 0.0;
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
-  
+
+  var dio = Dio();
+
+  void errormessage() {
+    Fluttertoast.showToast(
+        msg: "회원가입에 실패하셨습니다. 다시 시도해주세요.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
+  void successmessage() {
+    Fluttertoast.showToast(
+        msg: "회원가입에 성공하셨습니다!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
 
   void postrequest(var userdata) async {
     try {
-      
-      
-      String url = 'http://3.38.220.42:3031/join/user';
-     
-      // http.Response response =
-      //     await http.post(Uri.parse(url), body: <String, String>{});
+      FormData formData = FormData.fromMap({
+        "user_id": "0",
+        "nickname": _nameController.text,
+        "k_id": userdata.userId,
+        "k_img_url": MultipartFile(userdata.userImage, userdata.userImage),
+        "lat": "$latitude",
+        "lon": "$longitude",
+        "address": address
+      });
+      var response =
+          await dio.post("http://3.38.220.42:3031/join/user", data: formData);
 
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        successmessage();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Bottombar()));
+      } else {
+        errormessage();
+      }
       // userdata.inputAccessToken();
 
     } catch (e) {
       print(e);
     }
+  }
+
+  void getLocation() async {
+    MyLocation myLocation = MyLocation();
+    await myLocation.getMyCurrentLocation();
+    latitude = myLocation.latitude2;
+    longitude = myLocation.longitude2;
   }
 
   void FlutterDialog(var userdata) {
@@ -105,32 +149,92 @@ class _NameState extends State<Name> {
               ),
               ElevatedButton(
                 child: const Text("확인"),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => KpostalView(
-        useLocalServer: true,
-        localPort: 1024,
-        kakaoKey: 'bef258d41292f6783323f982c395e203', //api키 native 키가 아닌 javascript 키로 바꾸기
-        callback: (Kpostal result) {
-                        setState(() {
-                          postCode = result.postCode;
-                          address = result.address;
-                          latitude = result.latitude.toString();
-                          longitude = result.longitude.toString();
-                          kakaoLatitude = result.kakaoLatitude.toString();
-                          kakaoLongitude =
-                              result.kakaoLongitude.toString();
-                        });
-                      },
-      )));
-                  // postrequest(userdata);
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => KpostalView(
+                        useLocalServer: true,
+                        localPort: 1024,
+                        callback: (Kpostal result) {
+                          setState(() {
+                            this.postCode = result.postCode;
+                            this.address = result.address;
+                            this.kakaoLatitude =
+                                result.kakaoLatitude.toString();
+                            this.kakaoLongitude =
+                                result.kakaoLongitude.toString();
+                          });
 
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (_) => const Bottombar()));
+                          FlutterDialog1(userdata);
+                          FlutterDialog1(userdata);
+                        },
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
           );
         });
+  }
+
+  void FlutterDialog1(var userdata) {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: [
+                Text("회원가입 하시겠습니까?",
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400)),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  address,
+                  style: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff8E8E8F)),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text("취소"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: const Text("확인"),
+                onPressed: () {
+                  postrequest(userdata);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
   }
 
   @override
