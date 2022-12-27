@@ -17,7 +17,6 @@ class _HomePageState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    
   }
 
   @override
@@ -48,10 +47,13 @@ class _HomePageState extends State<Home> {
                     child: TextField(
                       controller: _searchController,
                       textAlign: TextAlign.start,
+                      textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(
-                              left: 16.w,
-                              top: _searchController.text == "" ? 2.h : 3.h),
+                              bottom: 5.w, left: 16.w
+
+                              // top: _searchController.text == "" ? 8.h : 8.h
+                              ),
                           hintText: '이주의 핫 아이템 2000원에 입어보기',
                           hintStyle: TextStyle(
                               fontSize: 14.sp, color: const Color(0xff8E8E8F)),
