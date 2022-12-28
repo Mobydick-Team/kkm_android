@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,7 +24,7 @@ class _NameState extends State<Name> {
 
   String postCode = '-';
   String address = '-';
-  double latitude = 0;
+  double latitude = 0.0;
   double longitude = 0.0;
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
@@ -53,17 +55,33 @@ class _NameState extends State<Name> {
 
   void postrequest(var userdata) async {
     try {
-      FormData formData = FormData.fromMap({
-        "user_id": "0",
-        "nickname": _nameController.text,
-        "k_id": userdata.userId,
-        "k_img_url": MultipartFile(userdata.userImage, userdata.userImage),
-        "lat": "$latitude",
-        "lon": "$longitude",
-        "address": address
-      });
-      var response =
-          await dio.post("http://3.38.220.42:3031/join/user", data: formData);
+      String uri = 'http://3.38.220.42:3031/user/join';
+      // ignore: prefer_collection_literals
+      Map<String, String> headers = <String, String>{
+        'Authorization': 'Basic ${base64Encode(utf8.encode('user:password'))}'
+      };
+
+      var map = Map<String, dynamic>();
+      print("user_id : 0");
+      print('nickname : ${_nameController.text}');
+      print('k_id : ${userdata.userId}');
+      print('k_img_url : ${userdata.userImage}');
+      print('lat : ${latitude}');
+      print('lon : $longitude');
+      print('address : $address');
+      map['user_id'] = '0';
+      map['nickname'] = _nameController.text;
+      map['k_id'] = userdata.userId;
+      map['k_img_url'] = userdata.userImage;
+      map['lat'] = '$latitude';
+      map['lon'] = '$longitude';
+      map['address'] = address;
+      map['kkm'] = '0';
+      http.Response response = await http.post(
+        Uri.parse(uri),
+        headers: headers,
+        body: map,
+      );
 
       print(response.statusCode);
       if (response.statusCode == 200) {
