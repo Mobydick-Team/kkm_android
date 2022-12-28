@@ -47,7 +47,7 @@ class _DetailClothesState extends State<DetailClothes> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 15.h),
+                      padding: EdgeInsets.only(top: 5.h),
                       child: Container(
                         width: double.infinity,
                         height: 400.h,
@@ -61,7 +61,7 @@ class _DetailClothesState extends State<DetailClothes> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 8.w, right: 12.w),
+                            padding: EdgeInsets.only(left: 20.w, right: 12.w),
                             child: Container(
                               width: 35.w,
                               height: 35.h,
@@ -81,7 +81,8 @@ class _DetailClothesState extends State<DetailClothes> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 14.w, right: 14.w),
+                      padding:
+                          EdgeInsets.only(left: 20.w, right: 20.w, top: 6.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -112,7 +113,7 @@ class _DetailClothesState extends State<DetailClothes> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.only(left: 14.w, right: 14.w, bottom: 5.h),
+                          EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
                       child: Container(
                           width: double.infinity,
                           child: Row(
@@ -142,7 +143,7 @@ class _DetailClothesState extends State<DetailClothes> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 14.w,
+                          width: 20.w,
                         ),
                         Text(
                           "상품 상태",
@@ -157,7 +158,7 @@ class _DetailClothesState extends State<DetailClothes> {
                       height: 8.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 14.w, right: 70.w),
+                      padding: EdgeInsets.only(left: 20.w, right: 70.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -214,14 +215,13 @@ class _DetailClothesState extends State<DetailClothes> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r))),
-                                child: Row(
-                                  children: [],
-                                ),
+                        child: Row(
+                          children: [],
+                        ),
                       )),
                 ),
               ],
             ),
-
           ],
         ),
       ),
