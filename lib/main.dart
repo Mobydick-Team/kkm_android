@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
       if (responseBody == "guest") {
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) =>const Name()));
+            context, MaterialPageRoute(builder: (_) => const Name()));
       } else {
         userdata.inputAccessToken(responseBody);
         // ignore: use_build_context_synchronously
@@ -169,7 +169,9 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
-                  signInWithKakao(userData);
+                  // signInWithKakao(userData); 애뮬레이터에선 돌아가지 않기 떄문에 잠시 개발할 동안만 null 처리
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Bottombar()));
                 },
                 child: Row(
                   children: [
