@@ -9,6 +9,9 @@ class DetailClothes extends StatefulWidget {
 }
 
 class _DetailClothesState extends State<DetailClothes> {
+  bool isfavorite = false;
+  int i = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -198,6 +201,7 @@ class _DetailClothesState extends State<DetailClothes> {
               ),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SafeArea(
                   child: Padding(
@@ -215,8 +219,69 @@ class _DetailClothesState extends State<DetailClothes> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.r),
                                 topRight: Radius.circular(20.r))),
-                        child: Row(
-                          children: [],
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 30.w, right: 20.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (isfavorite) {
+                                      i--;
+                                    } else {
+                                      i++;
+                                    }
+                                    isfavorite = !isfavorite;
+                                  });
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.favorite_border,
+                                      size: 22.h,
+                                      color: isfavorite
+                                          ? const Color(0xffD34646)
+                                          : Colors.black,
+                                    ),
+                                    Text(
+                                      "$i",
+                                      style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: isfavorite
+                                              ? const Color(0xffD34646)
+                                              : Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      minimumSize: Size(260.w, 37.h),
+                                      backgroundColor: const Color(0xff595FFF),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.r))),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.asset("images/chat.png"),
+                                      SizedBox(
+                                        width: 3.w,
+                                      ),
+                                      Text(
+                                        "대화하기",
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  )),
+                            ],
+                          ),
                         ),
                       )),
                 ),
