@@ -95,6 +95,10 @@ flutter:
     - images/bottombar/introducefillfill.png
     - images/chat.png
     - images/cat.jfif
+    - images/whiteheart.png
+    - images/logo1.png
+    - images/post1.png
+    - images/email.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
