@@ -115,7 +115,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                     ),
                   ),
                   Text(
-                    clothes[i].price,
+                    "${clothes[i].price}원",
                     style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
