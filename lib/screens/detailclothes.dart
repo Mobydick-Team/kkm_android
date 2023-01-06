@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/test1.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailClothes extends StatefulWidget {
   const DetailClothes({super.key});
@@ -11,6 +13,23 @@ class DetailClothes extends StatefulWidget {
 class _DetailClothesState extends State<DetailClothes> {
   bool isfavorite = false;
   int i = 0;
+  final controller = PageController(viewportFraction: 0.8, keepPage: true);
+  final pages = List.generate(
+    6,
+    (index) => Padding(
+      padding: EdgeInsets.only(top: 5.h),
+      child: Container(
+        width: double.infinity,
+        height: 400.h,
+        color: Colors.grey,
+        child: Center(
+            child: Text(
+          "Page $index",
+          style: const TextStyle(color: Colors.indigo),
+        )),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +68,33 @@ class _DetailClothesState extends State<DetailClothes> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5.h),
-                      child: Container(
-                        width: double.infinity,
-                        height: 400.h,
-                        color: Colors.black,
-                      ),
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 400.h,
+                          child: PageView.builder(
+                            controller: controller,
+                            // itemCount: pages.length,
+                            itemBuilder: (_, index) {
+                              return pages[index % pages.length];
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          
+                          child: SmoothPageIndicator(
+                              controller: controller,
+                              count: pages.length,
+                              effect: ExpandingDotsEffect(
+                                  spacing: 8.0,
+                                  radius: 4.0,
+                                  dotWidth: 24.0,
+                                  dotHeight: 16.0,
+                                  strokeWidth: 1.5,
+                                  dotColor: Colors.white,
+                                  activeDotColor: Colors.indigo)),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 7.h),
@@ -263,7 +302,12 @@ class _DetailClothesState extends State<DetailClothes> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(30.r))),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => const TestOne()));
+                                  },
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
