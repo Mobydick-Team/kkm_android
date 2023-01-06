@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/widgets/heartclothlist.dart';
-
 class Introduce extends StatefulWidget {
   const Introduce({super.key});
 
@@ -75,6 +74,9 @@ class _IntroduceState extends State<Introduce> {
                 ],
               ),
             ),
+            // SizedBox(
+            //   height: 28.h,
+            // ),
             SizedBox(
               height: 28.h,
             ),
@@ -85,7 +87,7 @@ class _IntroduceState extends State<Introduce> {
                 children: [
                   Container(
                     width: 155.w,
-                    height: 70.h,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: const Color(0xffF6F8FF),
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -139,7 +141,7 @@ class _IntroduceState extends State<Introduce> {
                   ),
                   Container(
                     width: 155.w,
-                    height: 70.h,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: const Color(0xffF6F8FF),
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -218,7 +220,7 @@ class _IntroduceState extends State<Introduce> {
             const SingleChildScrollView(
                 scrollDirection: Axis.horizontal, child: HeartClothes()),
             Padding(
-              padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 32.h),
+              padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -243,8 +245,11 @@ class _IntroduceState extends State<Introduce> {
             ),
             const SingleChildScrollView(
                 scrollDirection: Axis.horizontal, child: HeartClothes()),
+            // SizedBox(
+            //   height: 32.w,
+            // ),
             SizedBox(
-              height: 32.w,
+              height: 10.w,
             ),
             Padding(
               padding: EdgeInsets.only(left: 21.w, right: 21.w),
