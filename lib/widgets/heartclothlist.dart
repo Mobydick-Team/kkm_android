@@ -42,13 +42,14 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
   List<Widget> results = [];
   for (var i = 0; i < clothes.length; i++) {
     results.add(Padding(
-      padding: EdgeInsets.only(right: 10.w, top: 14.h),
+      padding: EdgeInsets.only(top: 14.h, right: 10.w),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         InkWell(
           onTap: () {},
           child: SizedBox(
             width: 96.w,
-            height: 135.h,
+            // height: 128.h,
+            height: 136.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -66,9 +67,9 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                     children: [Image.asset("images/whiteheart.png")],
                   ),
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
+                // SizedBox(
+                //   height: 8.h,
+                // ),
                 Text(
                   clothes[i].clothName,
                   style: TextStyle(
