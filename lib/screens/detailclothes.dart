@@ -13,14 +13,14 @@ class DetailClothes extends StatefulWidget {
 class _DetailClothesState extends State<DetailClothes> {
   bool isfavorite = false;
   int i = 0;
-  final controller = PageController(viewportFraction: 0.8, keepPage: true);
+  final controller = PageController(keepPage: true);
   final pages = List.generate(
-    6,
+    3,
     (index) => Padding(
       padding: EdgeInsets.only(top: 5.h),
       child: Container(
         width: double.infinity,
-        height: 400.h,
+        height: 372.h,
         color: Colors.grey,
         child: Center(
             child: Text(
@@ -71,17 +71,18 @@ class _DetailClothesState extends State<DetailClothes> {
                     Stack(
                       children: [
                         SizedBox(
-                          height: 400.h,
+                          height: 372.h,
                           child: PageView.builder(
                             controller: controller,
-                            // itemCount: pages.length,
+                            itemCount: pages.length,
                             itemBuilder: (_, index) {
                               return pages[index % pages.length];
                             },
                           ),
                         ),
                         Positioned(
-                          
+                          top: 345.h,
+                          left: 109.w,
                           child: SmoothPageIndicator(
                               controller: controller,
                               count: pages.length,
