@@ -74,9 +74,6 @@ class _IntroduceState extends State<Introduce> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   height: 28.h,
-            // ),
             SizedBox(
               height: 28.h,
             ),
@@ -245,12 +242,12 @@ class _IntroduceState extends State<Introduce> {
             ),
             const SingleChildScrollView(
                 scrollDirection: Axis.horizontal, child: HeartClothes()),
-            // SizedBox(
-            //   height: 32.w,
-            // ),
             SizedBox(
-              height: 10.w,
+              height: 32.w,
             ),
+            // SizedBox(
+            //   height: 10.w,
+            // ),
             Padding(
               padding: EdgeInsets.only(left: 21.w, right: 21.w),
               child: Container(
