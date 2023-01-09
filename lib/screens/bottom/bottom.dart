@@ -41,10 +41,14 @@ class _HomePageState extends State<Bottombar> {
           bottomNavigationBar: StylishBottomBar(
             items: [
               AnimatedBarItems(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.home_outlined,
+                    size: 23.h,
                   ),
-                  selectedIcon: const Icon(Icons.home),
+                  selectedIcon: Icon(
+                    Icons.home,
+                    size: 23.h,
+                  ),
                   selectedColor: Colors.black,
                   backgroundColor: Colors.black,
                   title: Text(
@@ -53,8 +57,14 @@ class _HomePageState extends State<Bottombar> {
                         TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
                   )),
               AnimatedBarItems(
-                  icon: const Icon(Icons.chat_bubble_outline_outlined),
-                  selectedIcon: const Icon(Icons.chat_bubble),
+                  icon: Icon(
+                    Icons.chat_bubble_outline_outlined,
+                    size: 23.h,
+                  ),
+                  selectedIcon: Icon(
+                    Icons.chat_bubble,
+                    size: 23.h,
+                  ),
                   selectedColor: Colors.black,
                   backgroundColor: Colors.black,
                   title: Text(
@@ -63,11 +73,13 @@ class _HomePageState extends State<Bottombar> {
                         TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
                   )),
               AnimatedBarItems(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.add_circle_outline,
+                    size: 23.h,
                   ),
-                  selectedIcon: const Icon(
+                  selectedIcon: Icon(
                     Icons.add_circle,
+                    size: 23.h,
                   ),
                   backgroundColor: Colors.black,
                   selectedColor: Colors.black,
@@ -77,11 +89,13 @@ class _HomePageState extends State<Bottombar> {
                         TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
                   )),
               AnimatedBarItems(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.person_outline,
+                    size: 23.h,
                   ),
-                  selectedIcon: const Icon(
+                  selectedIcon: Icon(
                     Icons.person,
+                    size: 23.h,
                   ),
                   backgroundColor: Colors.black,
                   selectedColor: Colors.black,
