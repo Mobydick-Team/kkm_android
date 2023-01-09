@@ -67,9 +67,9 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                     children: [Image.asset("images/whiteheart.png")],
                   ),
                 ),
-                // SizedBox(
-                //   height: 8.h,
-                // ),
+                SizedBox(
+                  height: 8.h,
+                ),
                 Text(
                   clothes[i].clothName,
                   style: TextStyle(
