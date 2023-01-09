@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: UserData()),
       ],
       child: ScreenUtilInit(
-        //screenutil 라이브러리 (뒤에 .h, .w, .r, .sp등등 크기를 반응형으로 만들어줌)
+        //screenutil 라이브러리 (뒤에 .h, .w00, .r, .sp등등 크기를 반응형으로 만들어줌)
         designSize: const Size(360, 800), // 어떤 사이즈를 기준으로 만들것인가
         builder: (BuildContext context, Widget? child) => const MaterialApp(
             title: '꼬꼬막', debugShowCheckedModeBanner: false, home: Login()),
