@@ -1,10 +1,10 @@
 class ClothesList {
-  String userNmae;
+  String userName;
   int heart;
   String image;
   String price;
   String clothName;
   ClothesList(
-    this.userNmae, this.heart, this.image, this.price, this.clothName
+    this.userName, this.heart, this.image, this.price, this.clothName
   );
 }
