@@ -78,7 +78,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                               width: 2.w,
                             ),
                             Text(
-                              clothes[i].userNmae,
+                              clothes[i].userName,
                               style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500,
@@ -171,7 +171,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                         width: 2.w,
                                       ),
                                       Text(
-                                        clothes[i + 1].userNmae,
+                                        clothes[i + 1].userName,
                                         style: TextStyle(
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w500,
@@ -258,7 +258,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                     width: 2.w,
                                   ),
                                   Text(
-                                    clothes[i + 1].userNmae,
+                                    clothes[i + 1].userName,
                                     style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w500,
