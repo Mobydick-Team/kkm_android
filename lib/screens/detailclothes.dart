@@ -117,7 +117,7 @@ class _DetailClothesState extends State<DetailClothes> {
                             child: Text(
                               "k99._.e",
                               style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.black),
+                                  fontSize: 15.sp, color: Colors.black),
                             ),
                           )
                         ],
@@ -125,7 +125,7 @@ class _DetailClothesState extends State<DetailClothes> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.only(left: 20.w, right: 20.w, top: 6.h),
+                          EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -136,12 +136,10 @@ class _DetailClothesState extends State<DetailClothes> {
                                 "검정 싱글 크롭 자켓",
                                 style: TextStyle(
                                     fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500),
+                                    fontWeight: FontWeight.w700),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: 5.h,
-                                ),
+                                padding: EdgeInsets.only(bottom: 7.h, top: 4.h),
                                 child: Text(
                                   "3000원",
                                   style: TextStyle(
