@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/chattingmodel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/detailclothes.dart';
 
 class Chatting extends StatefulWidget {
   const Chatting({super.key});
@@ -41,7 +42,10 @@ List<Widget> makeChattingList(
       Padding(
         padding: EdgeInsets.only(top: 30.h),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const DetailClothes()));
+          },
           child: SizedBox(
             height: 60.h,
             width: double.infinity,
