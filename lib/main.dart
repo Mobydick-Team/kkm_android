@@ -22,8 +22,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp, // 세로 정방향만 사용할 수 있다.
+      // DeviceOrientation.portraitDown,
+      // DeviceOrientation.landscapeLeft,
+      // DeviceOrientation.landscapeRight,
+    ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
     return MultiProvider(
