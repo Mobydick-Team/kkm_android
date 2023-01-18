@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,7 +153,7 @@ class _LoginState extends State<Login> {
               height: 259.h,
               child: Image.asset(
                 "images/login.png",
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             SizedBox(
