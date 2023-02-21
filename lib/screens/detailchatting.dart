@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class DetailChatting extends StatefulWidget {
   const DetailChatting({super.key});
@@ -23,7 +24,8 @@ class _DetailChattingState extends State<DetailChatting> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 6.h, left: 12.w),
+                    padding:
+                        EdgeInsets.only(top: 6.h, left: 12.w, bottom: 20.5.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -47,9 +49,22 @@ class _DetailChattingState extends State<DetailChatting> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      
+                      Icon(
+                        Icons.notifications_none,
+                        color: Colors.black,
+                        size: 22.w,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.w, right: 147.w),
+                        child: Text(
+                          "메시지 알림",
+                          style: TextStyle(fontSize: 20.sp, color: Colors.black),
+                        ),
+                      ),
+
+
                     ],
-                  )
+                  ),
                 ],
               ),
             )),
