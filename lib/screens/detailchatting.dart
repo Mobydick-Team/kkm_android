@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:kkm/screens/report.dart';
 
 class DetailChatting extends StatefulWidget {
   const DetailChatting({super.key});
@@ -122,7 +123,17 @@ class _DetailChattingState extends State<DetailChatting> {
                     height: 15.h,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (_, __, ___) => const Report(),
+                          transitionDuration: const Duration(milliseconds: 300),
+                          transitionsBuilder: (_, a, __, c) =>
+                              FadeTransition(opacity: a, child: c),
+                        ),
+                      );
+                    },
                     child: Padding(
                       padding:
                           EdgeInsets.only(left: 22.w, top: 10.h, bottom: 10.h),
