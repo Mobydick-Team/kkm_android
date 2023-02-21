@@ -10,6 +10,9 @@ class DetailChatting extends StatefulWidget {
 }
 
 class _DetailChattingState extends State<DetailChatting> {
+  bool status1 = false;
+  bool status2 = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -40,8 +43,10 @@ class _DetailChattingState extends State<DetailChatting> {
                             )),
                         Text(
                           "상세정보",
-                          style:
-                              TextStyle(fontSize: 22.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
                         )
                       ],
                     ),
@@ -58,12 +63,115 @@ class _DetailChattingState extends State<DetailChatting> {
                         padding: EdgeInsets.only(left: 8.w, right: 147.w),
                         child: Text(
                           "메시지 알림",
-                          style: TextStyle(fontSize: 20.sp, color: Colors.black),
+                          style:
+                              TextStyle(fontSize: 20.sp, color: Colors.black),
                         ),
                       ),
-
-
+                      FlutterSwitch(
+                        width: 45.w,
+                        height: 25.h,
+                        value: status1,
+                        valueFontSize: 0.sp,
+                        padding: 2.h,
+                        activeColor: const Color(0xff555FFF),
+                        duration: const Duration(milliseconds: 100),
+                        onToggle: (val) {
+                          setState(() {
+                            status1 = val;
+                          });
+                        },
+                      ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.calendar_month,
+                        color: Colors.black,
+                        size: 22.w,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                        child: Text(
+                          "약속 알림",
+                          style:
+                              TextStyle(fontSize: 20.sp, color: Colors.black),
+                        ),
+                      ),
+                      FlutterSwitch(
+                        width: 45.w,
+                        height: 25.h,
+                        value: status2,
+                        valueFontSize: 0.sp,
+                        padding: 2.h,
+                        activeColor: const Color(0xff555FFF),
+                        duration: const Duration(milliseconds: 100),
+                        onToggle: (val) {
+                          setState(() {
+                            status2 = val;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: 22.w, top: 10.h, bottom: 10.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: const Color(0xffD34646),
+                            size: 22.w,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                            child: Text(
+                              "신고하기",
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  color: const Color(0xffD34646)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: 22.w, top: 15.h, bottom: 10.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            color: const Color(0xffD34646),
+                            size: 22.w,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                            child: Text(
+                              "채팅방 나가기",
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  color: const Color(0xffD34646)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
