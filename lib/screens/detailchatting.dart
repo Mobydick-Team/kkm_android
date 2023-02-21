@@ -16,6 +16,43 @@ class _DetailChattingState extends State<DetailChatting> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        endDrawer: SizedBox(
+            width: double.infinity,
+            child: Drawer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 6.h, left: 12.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              size: 21.w,
+                              color: Colors.black,
+                            )),
+                        Text(
+                          "상세정보",
+                          style:
+                              TextStyle(fontSize: 22.sp, color: Colors.black),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      
+                    ],
+                  )
+                ],
+              ),
+            )),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -64,16 +101,22 @@ class _DetailChattingState extends State<DetailChatting> {
             ],
           ),
           actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.more_horiz,
-                    size: 25.w,
-                    color: Colors.black,
-                  )),
-            )
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.more_horiz,
+                  size: 25.w,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  FocusScope.of(context).unfocus();
+                  Scaffold.of(context).openEndDrawer();
+
+                  FocusScope.of(context).unfocus();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
+            ),
           ],
           elevation: 0.0,
         ),
@@ -99,7 +142,6 @@ class _DetailChattingState extends State<DetailChatting> {
                   child: TextField(
                     textAlignVertical: TextAlignVertical.center,
                     style: TextStyle(color: Colors.black, fontSize: 16.sp),
-                    autofocus: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.r),
