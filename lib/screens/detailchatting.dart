@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:kkm/screens/report.dart';
+import 'package:flutter_animated_icons/flutter_animated_icons.dart';
 
 class DetailChatting extends StatefulWidget {
   const DetailChatting({super.key});
