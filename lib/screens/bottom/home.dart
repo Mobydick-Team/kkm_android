@@ -34,45 +34,61 @@ class _HomePageState extends State<Home> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 43.h),
-                  child: Container(
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: const Color(0xffE9E9EA),
-                        border: Border.all(
-                          color: const Color(0xffE9E9EA),
-                          width: 2.0.w,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(13.r))),
-                    child: TextField(
-                      controller: _searchController,
-                      textAlign: TextAlign.start,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                              bottom: 5.w, left: 16.w
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        iconSize: 20.h,
+                        icon: const Icon(Icons.menu),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Container(
+                        height: 50.h,
+                        width: 287.w,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: const Color(0xffE9E9EA),
+                            border: Border.all(
+                              color: const Color(0xffE9E9EA),
+                              width: 2.0.w,
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(13.r))),
+                        child: TextField(
+                          controller: _searchController,
+                          textAlign: TextAlign.start,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(
+                                  bottom: 12.h, left: 16.w, top: 10.h
 
-                              // top: _searchController.text == "" ? 8.h : 8.h
-                              ),
-                          hintText: '이주의 핫 아이템 2000원에 입어보기',
-                          hintStyle: TextStyle(
-                              fontSize: 14.sp, color: const Color(0xff8E8E8F)),
-                          border: InputBorder.none,
-                          suffixIcon: IconButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {
-                              setState(() {
-                                _searchController.clear();
-                                FocusScope.of(context).unfocus();
-                              });
-                            },
-                            icon: Icon(Icons.search,
-                                size: 22.h, color: const Color(0xff8E8E8E)),
-                          )),
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                    ),
+                                  // top: _searchController.text == "" ? 8.h : 8.h
+                                  ),
+                              hintText: '이주의 핫 아이템 2000원에 입어보기',
+                              hintStyle: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff8E8E8F)),
+                              border: InputBorder.none,
+                              suffixIcon: IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  setState(() {
+                                    _searchController.clear();
+                                    FocusScope.of(context).unfocus();
+                                  });
+                                },
+                                icon: Icon(Icons.search,
+                                    size: 22.h, color: const Color(0xff8E8E8E)),
+                              )),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
