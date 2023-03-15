@@ -30,8 +30,6 @@ class MyApp extends StatelessWidget {
       // DeviceOrientation.landscapeLeft,
       // DeviceOrientation.landscapeRight,
     ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.bottom]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: UserData()),
