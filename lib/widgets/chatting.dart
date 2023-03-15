@@ -45,9 +45,7 @@ List<Widget> makeChattingList(
         child: InkWell(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const DetailChatting(
-                  
-                )));
+                MaterialPageRoute(builder: (_) => const DetailChatting()));
           },
           child: SizedBox(
             height: 60.h,
