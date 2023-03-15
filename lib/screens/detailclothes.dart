@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/detailchatting.dart';
 import 'package:kkm/screens/test1.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -82,18 +83,18 @@ class _DetailClothesState extends State<DetailClothes> {
                         ),
                         Positioned(
                           top: 345.h,
-                          left: 109.w,
+                          left: 135.w,
                           child: SmoothPageIndicator(
                               controller: controller,
                               count: pages.length,
                               effect: ExpandingDotsEffect(
-                                  spacing: 8.0,
                                   radius: 4.0,
-                                  dotWidth: 24.0,
-                                  dotHeight: 16.0,
+                                  dotWidth: 15.w,
+                                  dotHeight: 9.h,
                                   strokeWidth: 1.5,
-                                  dotColor: Colors.white,
-                                  activeDotColor: Colors.indigo)),
+                                  dotColor:
+                                      const Color(0xffFFFFFF).withOpacity(0.5),
+                                  activeDotColor: const Color(0xffFFFFFF))),
                         ),
                       ],
                     ),
@@ -305,7 +306,8 @@ class _DetailClothesState extends State<DetailClothes> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (_) => const TestOne()));
+                                            builder: (_) =>
+                                                const DetailChatting()));
                                   },
                                   child: Row(
                                     mainAxisAlignment:
