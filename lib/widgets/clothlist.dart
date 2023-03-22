@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/clothes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/model/selection.dart';
 import 'package:kkm/screens/detailclothes.dart';
 
 class Clothes extends StatefulWidget {
@@ -12,11 +13,22 @@ class Clothes extends StatefulWidget {
 
 class _ClothListState extends State<Clothes> {
   final List<ClothesList> clothesList = <ClothesList>[];
+  final List<Selection> selection = <Selection>[];
+  final List<String> _values = [
+    "전체",
+    "상의",
+    "스커트",
+    "하의",
+    "원피스",
+    "가방",
+    "패션용품",
+    "신발",
+    "액세서리",
+    "기타"
+  ];
 
   @override
   void initState() {
-    // TODO: implement initState
-    print("실행됨");
     for (int i = 0; i < 9; i++) {
       clothesList.add(ClothesList(
           "메린",
@@ -24,6 +36,11 @@ class _ClothListState extends State<Clothes> {
           "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg",
           "2000",
           "메린의 미친 옷"));
+      print("추가되는중");
+    }
+    for (int i = 0; i < _values.length; i++) {
+      selection.add(Selection(_values[i], i == 0 ? true : false));
+      print("추가되는중 2222");
     }
   }
 
@@ -318,3 +335,4 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
   }
   return results;
 }
+
