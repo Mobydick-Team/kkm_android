@@ -36,7 +36,7 @@ class _HomePageState extends State<Bottombar> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         //바텀바 코드
-        
+
         length: 4,
         child: Scaffold(
           extendBody: true,
@@ -125,6 +125,7 @@ class _HomePageState extends State<Bottombar> {
           body: SafeArea(
             child: PageView(
               controller: controller,
+              physics: const NeverScrollableScrollPhysics(),
               onPageChanged: ((value) {
                 if (value == 0) {
                   setState(() {
