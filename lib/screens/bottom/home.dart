@@ -262,7 +262,8 @@ class _HomePageState extends State<Home> {
                       ],
                     ),
                   ),
-                  const SelectionWidget()
+                  const SelectionWidget(),
+                  const Clothes()
                 ],
               ),
             ),
