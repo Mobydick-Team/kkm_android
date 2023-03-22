@@ -20,10 +20,12 @@ class _HeartClothListState extends State<HeartClothes> {
     for (int i = 0; i < 9; i++) {
       clothesList.add(ClothesList(
           "메린",
-          100 + i,
+          false,
           "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg",
           "2000",
-          "메린의 미친 옷"));
+          "메린의 미친 옷",
+          1000,
+          3000, "부산광역시 연제구"));
     }
   }
 
