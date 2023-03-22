@@ -53,7 +53,13 @@ List<Widget> makeSelection(BuildContext context, List<Selection> selections) {
       padding: EdgeInsets.only(right: 6.w),
       child: InkWell(
         onTap: () {
-          selections[i].ispressed = true;
+          for (int j = 0; j < 10; j++) {
+            if (i == j) {
+              selections[i].ispressed = true;
+            } else {
+              selections[i].ispressed = false;
+            }
+          }
         },
         child: Container(
           height: 21.h,
