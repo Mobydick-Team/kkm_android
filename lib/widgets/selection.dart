@@ -36,64 +36,68 @@ class _SelectionWidgetState extends State<SelectionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w),
+      padding: EdgeInsets.only(left: 20.w, top: 5.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(children: makeSelection(context, selection)),
       ),
     );
   }
-}
 
-List<Widget> makeSelection(BuildContext context, List<Selection> selections) {
-  List<Widget> results = [];
+  List<Widget> makeSelection(BuildContext context, List<Selection> selections) {
+    List<Widget> results = [];
 
-  for (int i = 0; i < selections.length; i++) {
-    results.add(Padding(
-      padding: EdgeInsets.only(right: 6.w),
-      child: InkWell(
-        onTap: () {
-          for (int j = 0; j < 10; j++) {
-            if (i == j) {
-              selections[i].ispressed = true;
-            } else {
-              selections[i].ispressed = false;
+    for (int i = 0; i < selections.length; i++) {
+      results.add(Padding(
+        padding: EdgeInsets.only(right: 6.w),
+        child: InkWell(
+          onTap: () {
+            for (int j = 0; j < 10; j++) {
+              if (i == j) {
+                setState(() {
+                  selections[j].ispressed = true;
+                });
+              } else {
+                setState(() {
+                  selections[j].ispressed = false;
+                });
+              }
             }
-          }
-        },
-        child: Container(
-          height: 21.h,
-          width: selections[i].name.length == 4
-              ? 62.w
-              : selections[i].name.length == 3
-                  ? 52.w
-                  : 43.w,
-          decoration: BoxDecoration(
-            color: selections[i].ispressed
-                ? const Color(0xff262626)
-                : Colors.white,
-            borderRadius: BorderRadius.circular(10.r),
-            border: selections[i].ispressed
-                ? null
-                : Border.all(width: 1.w, color: const Color(0xffE0E0E0)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                selections[i].name,
-                style: TextStyle(
-                    fontSize: 11.sp,
-                    color: selections[i].ispressed
-                        ? Colors.white
-                        : const Color(0xff262626)),
-              )
-            ],
+          },
+          child: Container(
+            height: 21.h,
+            width: selections[i].name.length == 4
+                ? 62.w
+                : selections[i].name.length == 3
+                    ? 52.w
+                    : 43.w,
+            decoration: BoxDecoration(
+              color: selections[i].ispressed
+                  ? const Color(0xff262626)
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(5.r),
+              border: selections[i].ispressed
+                  ? null
+                  : Border.all(width: 1.w, color: const Color(0xffE0E0E0)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  selections[i].name,
+                  style: TextStyle(
+                      fontSize: 11.sp,
+                      color: selections[i].ispressed
+                          ? Colors.white
+                          : const Color(0xff262626)),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    ));
+      ));
+    }
+    return results;
   }
-  return results;
 }
