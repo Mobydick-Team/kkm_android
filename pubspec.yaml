@@ -60,6 +60,9 @@ dependencies:
   smooth_page_indicator: ^1.0.0
   flutter_switch: ^0.3.2
   stylish_bottom_bar: ^1.0.0
+  textfields: ^0.0.3
+  expansion_tile_card: ^2.0.0
+  syncfusion_flutter_sliders: ^20.4.54
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -102,6 +105,7 @@ flutter:
     - images/logo1.png
     - images/post1.png
     - images/email.png
+    - images/main1.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
