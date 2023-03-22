@@ -92,7 +92,6 @@ class _NameState extends State<Name> {
         errormessage();
       }
       // userdata.inputAccessToken();
-
     } catch (e) {
       print(e);
     }
@@ -241,7 +240,9 @@ class _NameState extends State<Name> {
               ElevatedButton(
                 child: const Text("확인"),
                 onPressed: () {
-                  postrequest(userdata);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Bottombar()));
+                  // postrequest(userdata);
                 },
               ),
             ],
@@ -309,26 +310,27 @@ class _NameState extends State<Name> {
                 padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: Container(
                   decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: const Color(0xffF5F5F5),
-                      border: Border.all(
-                        color: const Color(0xffF5F5F5),
-                        width: 2.0.w,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(13.r))),
+                    borderRadius: BorderRadius.all(Radius.circular(13.r)),
+                    color: const Color(0xffE9E9EA),
+                  ),
                   child: TextField(
                     controller: _nameController,
                     textAlign: TextAlign.start,
+                    textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                            left: 16.w,
-                            top: _nameController.text == "" ? 0.h : 16.h),
                         hintText: '멋진 닉네임을 지어보세요!',
                         hintStyle: TextStyle(
-                            fontSize: 16.sp, color: const Color(0xff8E8E8F)),
+                          fontSize: 14.sp,
+                          color: const Color(0xff8E8E8F),
+                        ),
                         border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(
+                            left: 8.w, right: 0, top: 0, bottom: 0),
                         suffixIcon: _nameController.text == ""
-                            ? null
+                            ? IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: Icon(null))
                             : IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
