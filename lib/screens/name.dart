@@ -325,12 +325,12 @@ class _NameState extends State<Name> {
                         ),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(
-                            left: 8.w, right: 0, top: 0, bottom: 0),
+                            left: 16.w, right: 0, top: 0, bottom: 0),
                         suffixIcon: _nameController.text == ""
                             ? IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {},
-                                icon: Icon(null))
+                                icon: const Icon(null))
                             : IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
