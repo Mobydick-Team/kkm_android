@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/screens/detailchatting.dart';
 import 'package:kkm/screens/test1.dart';
+import 'package:kkm/widgets/anotherclothes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailClothes extends StatefulWidget {
@@ -230,7 +231,68 @@ class _DetailClothesState extends State<DetailClothes> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "소개",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: const Color(0xffBDBDBD)),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 20.w, right: 20.w, top: 3.h),
+                            child: Container(
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: RichText(
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 5,
+                                          strutStyle:
+                                              StrutStyle(fontSize: 16.sp),
+                                          text: TextSpan(
+                                            text:
+                                                '김혜린과 유나은은 바보다. 이것은 절대 부정할 수 없는 사실이다. 그 이유는 조용제가 천재이기 때문이다. 반박시 사형. 아 코로난데 슈발 게임을 못하는게 말이 되냐. 나는 우리 가족이 밉다.',
+                                            style: TextStyle(
+                                                color: const Color(0xff212121),
+                                                height: 1.4,
+                                                fontSize: 14.5.sp),
+                                          )),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 10.h,
+                            margin: EdgeInsets.only(top: 25.h),
+                            color: const Color(0xffEEEEEE),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, top: 28.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "사용자의 다른 게시물",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: const Color(0xffBDBDBD)),
+                                )
+                              ],
+                            ),
+                          ),
+                          const AnotherClothes()
                         ],
                       ),
                     ),
