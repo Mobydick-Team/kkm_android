@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/screens/detailchatting.dart';
+import 'package:kkm/screens/profile.dart';
 import 'package:kkm/screens/test1.dart';
 import 'package:kkm/widgets/anotherclothes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:animations/animations.dart';
 
 class DetailClothes extends StatefulWidget {
   const DetailClothes({super.key});
@@ -73,17 +75,38 @@ class _DetailClothesState extends State<DetailClothes> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 8.w),
-                      child: Container(
-                        width: 35.w,
-                        height: 35.h,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
+                        padding: EdgeInsets.only(right: 8.w),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 400),
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const Profile(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 35.w,
+                            height: 35.h,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: AssetImage("images/cat.jpg"))),
-                      ),
-                    ),
+                                image: AssetImage("images/cat.jpg"),
+                              ),
+                            ),
+                          ),
+                        )),
                     Padding(
                       padding: EdgeInsets.only(top: 2.h),
                       child: Text(
