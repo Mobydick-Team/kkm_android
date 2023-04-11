@@ -43,14 +43,24 @@ class _DetailClothesState extends State<DetailClothes> {
                 width: 360.w,
                 color: Colors.white,
               ),
-              SizedBox(
-                height: 407.h,
-                child: PageView.builder(
-                  controller: controller,
-                  itemCount: pages.length,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ImageZoomDialog(imageUrl: "images/cat.jpg")),
+                  );
+                },
+                child: SizedBox(
+                  height: 407.h,
+                  child: PageView.builder(
+                    controller: controller,
+                    itemCount: pages.length,
+                    itemBuilder: (_, index) {
+                      return pages[index % pages.length];
+                    },
+                  ),
                 ),
               ),
               Positioned(
@@ -95,14 +105,17 @@ class _DetailClothesState extends State<DetailClothes> {
                               ),
                             );
                           },
-                          child: Container(
-                            width: 35.w,
-                            height: 35.h,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage("images/cat.jpg"),
+                          child: Hero(
+                            tag: "images/cat.jpg",
+                            child: Container(
+                              width: 35.w,
+                              height: 35.h,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage("images/cat.jpg"),
+                                ),
                               ),
                             ),
                           ),
@@ -361,6 +374,24 @@ class _DetailClothesState extends State<DetailClothes> {
                   ))
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ImageZoomDialog extends StatelessWidget {
+  final String imageUrl;
+
+  ImageZoomDialog({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: InteractiveViewer(
+        child: Hero(
+          tag: imageUrl,
+          child: Image.network(imageUrl),
         ),
       ),
     );
