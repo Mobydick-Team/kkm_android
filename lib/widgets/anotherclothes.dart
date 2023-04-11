@@ -53,7 +53,7 @@ List<Widget> makeAnotherClothes(
         padding: EdgeInsets.only(right: 20.w),
         child: Container(
           width: 128.w,
-          height: 148.h,
+          height: 155.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               image: const DecorationImage(
@@ -64,7 +64,10 @@ List<Widget> makeAnotherClothes(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                  padding: EdgeInsets.only(
+                    left: 7.w,
+                    right: 7.w,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -90,9 +93,10 @@ List<Widget> makeAnotherClothes(
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 5.5.w, right: 5.5.w),
+                  padding:
+                      EdgeInsets.only(left: 5.5.w, right: 5.5.w, bottom: 3.h),
                   child: Container(
-                    height: 24.85.h,
+                    height: 28.h,
                     width: 116.67.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
@@ -111,7 +115,7 @@ List<Widget> makeAnotherClothes(
                               ),
                             ),
                             SizedBox(
-                              height: 3.h,
+                              height: 2.h,
                             ),
                             Text(
                               "${clothes[i].deposit}원",
@@ -134,7 +138,7 @@ List<Widget> makeAnotherClothes(
                               ),
                             ),
                             SizedBox(
-                              height: 3.h,
+                              height: 2.h,
                             ),
                             Text(
                               "${clothes[i].rentalfee}원",
