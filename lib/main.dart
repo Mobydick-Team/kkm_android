@@ -5,11 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kkm/model/login_platform.dart';
+import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
+import 'package:kkm/screens/detailclothes.dart';
 import 'package:kkm/screens/name.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:http/http.dart' as http;
+import 'package:kkm/screens/test.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: UserData()),
+        ChangeNotifierProvider.value(value: Emphaisis()),
       ],
       child: ScreenUtilInit(
         //screenutil 라이브러리 (뒤에 .h, .w00, .r, .sp등등 크기를 반응형으로 만들어줌)
@@ -173,10 +177,10 @@ class _LoginState extends State<Login> {
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
                   // signInWithKakao(userData); 애뮬레이터에선 돌아가지 않기 떄문에 잠시 개발할 동안만 null 처리
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (_) => const Bottombar()));
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => const Name()));
+                  // Navigator.push(
+                  //     context, MaterialPageRoute(builder: (_) => const Name()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const DetailClothes()));
                 },
                 child: Row(
                   children: [
