@@ -177,10 +177,8 @@ class _LoginState extends State<Login> {
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
                   // signInWithKakao(userData); 애뮬레이터에선 돌아가지 않기 떄문에 잠시 개발할 동안만 null 처리
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (_) => const Name()));
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const DetailClothes()));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => const Name()));
                 },
                 child: Row(
                   children: [
