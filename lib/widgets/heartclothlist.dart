@@ -25,7 +25,8 @@ class _HeartClothListState extends State<HeartClothes> {
           "2000",
           "메린의 미친 옷",
           1000,
-          3000, "부산광역시 연제구"));
+          3000,
+          "부산광역시 연제구"));
     }
   }
 
@@ -43,53 +44,116 @@ class _HeartClothListState extends State<HeartClothes> {
 List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
   List<Widget> results = [];
   for (var i = 0; i < clothes.length; i++) {
-    results.add(Padding(
-      padding: EdgeInsets.only(top: 14.h, right: 10.w),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        InkWell(
-          onTap: () {},
-          child: SizedBox(
-            width: 96.w,
-            // height: 128.h,
-            height: 136.h,
+    results.add(
+      Padding(
+        padding: EdgeInsets.only(right: 10.w, top: 14.h),
+        child: Container(
+          width: 110.w,
+          height: 130.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6.r),
+              image: const DecorationImage(
+                  image: AssetImage("images/cat.jpg"), fit: BoxFit.fill)),
+          child: Padding(
+            padding: EdgeInsets.only(top: 7.5.h, bottom: 3.39.h),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 96.w,
-                  height: 96.h,
-                  padding: EdgeInsets.only(top: 8.h, right: 8.w),
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      border: Border.all(width: 0.0),
-                      borderRadius: BorderRadius.all(Radius.circular(5.r))),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 7.w,
+                    right: 7.w,
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Image.asset("images/whiteheart.png")],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        clothes[i].clothName,
+                        style: TextStyle(
+                            fontSize: 9.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      // clothes[i].isheartpressed
+                      //     ?
+                      Icon(
+                        Icons.favorite,
+                        color: const Color(0xffD34646),
+                        size: 13.h,
+                      )
+                      // : Icon(
+                      //     Icons.favorite_border,
+                      //     size: 13.h,
+                      //     color: Colors.white,
+                      //   ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Text(
-                  clothes[i].clothName,
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
-                ),
-                Text(
-                  "${clothes[i].price}원",
-                  style: TextStyle(
-                      fontSize: 10.sp, color: const Color(0xff797979)),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 5.5.w, right: 5.5.w, bottom: 3.h),
+                  child: Container(
+                    height: 28.h,
+                    width: 116.67.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: Colors.white.withOpacity(0.5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "보증금",
+                              style: TextStyle(
+                                fontSize: 7.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              "${clothes[i].deposit}원",
+                              style: TextStyle(
+                                  fontSize: 8.sp, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "대여료",
+                              style: TextStyle(
+                                fontSize: 7.sp,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              "${clothes[i].rentalfee}원",
+                              style: TextStyle(
+                                  fontSize: 8.sp, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
-      ]),
-    ));
+      ),
+    );
   }
   return results;
 }
