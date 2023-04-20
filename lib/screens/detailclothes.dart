@@ -345,7 +345,9 @@ class _DetailClothesState extends State<DetailClothes> {
                                     ],
                                   ),
                                 ),
-                                const AnotherClothes()
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 50.h),
+                                    child: AnotherClothes()),
                               ],
                             ),
                           ),
