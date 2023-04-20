@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/review.dart';
 import 'package:kkm/widgets/heartclothlist.dart';
 
 class Introduce extends StatefulWidget {
@@ -44,7 +45,7 @@ class _IntroduceState extends State<Introduce> {
                       ),
                       Text(
                         "k99._.e",
-                        style: TextStyle(fontSize: 26.sp, color: Colors.black),
+                        style: TextStyle(fontSize: 23.sp, color: Colors.black),
                       ), //provider로 바꾸기
                       SizedBox(
                         height: 5.h,
@@ -62,12 +63,12 @@ class _IntroduceState extends State<Introduce> {
                       InkWell(
                         onTap: () {},
                         child: Text(
-                          "정보수정",
+                          "내 정보 수정",
                           style: TextStyle(
                               color: const Color(0xff8E8E8F),
                               fontSize: 12.sp,
                               decoration: TextDecoration.underline,
-                              decorationThickness: 3),
+                              decorationThickness: 1.5.h),
                         ),
                       )
                     ],
@@ -76,116 +77,138 @@ class _IntroduceState extends State<Introduce> {
               ),
             ),
             SizedBox(
-              height: 28.h,
+              height: 23.h,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 21.w, right: 21.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 155.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF6F8FF),
-                      borderRadius: BorderRadius.all(Radius.circular(15.r)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 14.w, right: 14.w),
-                      child: Column(
+              padding: EdgeInsets.only(left: 20.5.w, right: 20.5.w),
+              child: Container(
+                height: 66.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xffF6F8FF),
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 36.5.w, right: 36.5.w),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "보유 꼬막",
-                            style: TextStyle(
-                              fontSize: 10.sp,
-                              color: const Color(0xff828282),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "1,000,000",
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                              SizedBox(
-                                width: 3.w,
-                              ),
-                              Image.asset(
-                                "images/logo1.png",
-                                scale: 3.5,
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: const Color(0xff8E8E8F),
-                                size: 15.h,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 155.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF6F8FF),
-                      borderRadius: BorderRadius.all(Radius.circular(15.r)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 14.w, right: 14.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "거래 내역",
                             style: TextStyle(
-                              fontSize: 10.sp,
-                              color: const Color(0xff828282),
-                            ),
+                                fontSize: 12.sp,
+                                color: const Color(0xffBDBDBD)),
                           ),
                           SizedBox(
-                            height: 2.h,
+                            height: 1.h,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "12 건",
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: const Color(0xff8E8E8F),
-                                size: 15.h,
-                              )
-                            ],
-                          ),
+                          Text(
+                            "369",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: const Color(0xff304FFE)),
+                          )
                         ],
                       ),
+                      Container(
+                        width: 1.w,
+                        height: 44.h,
+                        color: const Color(0xffEEEEEE),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const Review()));
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "거래후기",
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: const Color(0xffBDBDBD)),
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              "12",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: const Color(0xff304FFE)),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 1.w,
+                        height: 44.h,
+                        color: const Color(0xffEEEEEE),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "보유꼬막",
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: const Color(0xffBDBDBD)),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            "24",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                color: const Color(0xff304FFE)),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 28.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset("images/post1.png"),
+                  Text(
+                    "내 게시물",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14.sp,
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    width: 205.w,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: const Color(0xff8E8E8F),
+                    size: 15.h,
+                  ),
                 ],
               ),
             ),
+            const SingleChildScrollView(
+                scrollDirection: Axis.horizontal, child: HeartClothes()),
             SizedBox(
-              height: 28.h,
+              height: 20.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 21.w, right: 21.w),
@@ -217,34 +240,9 @@ class _IntroduceState extends State<Introduce> {
             ),
             const SingleChildScrollView(
                 scrollDirection: Axis.horizontal, child: HeartClothes()),
-            Padding(
-              padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 20.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset("images/post1.png"),
-                  Text(
-                    "내 게시물",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 205.w,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: const Color(0xff8E8E8F),
-                    size: 15.h,
-                  ),
-                ],
-              ),
-            ),
-            const SingleChildScrollView(
-                scrollDirection: Axis.horizontal, child: HeartClothes()),
+
             SizedBox(
-              height: 32.w,
+              height: 25.h,
             ),
             // SizedBox(
             //   height: 10.w,
@@ -269,8 +267,10 @@ class _IntroduceState extends State<Introduce> {
                       children: [
                         Text(
                           "꼬꼬막에게 말해주세요!",
-                          style:
-                              TextStyle(fontSize: 16.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
                           height: 2.h,
