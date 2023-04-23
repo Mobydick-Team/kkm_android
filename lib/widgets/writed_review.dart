@@ -127,7 +127,9 @@ List<Widget> makeReviews(BuildContext context, List<WritedReview> reviews) {
                     reviews[i].iskkm ? "있꼬막" : "없꼬막",
                     style: TextStyle(
                         fontSize: 12.sp,
-                        color: const Color(0xff304FFE),
+                        color: reviews[i].iskkm
+                            ? const Color(0xff304FFE)
+                            : const Color(0xff9E9E9E),
                         fontWeight: FontWeight.w500),
                   )
                 ],
