@@ -13,10 +13,11 @@ import 'package:kkm/screens/name.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:http/http.dart' as http;
 import 'package:kkm/screens/test.dart';
+import 'package:kkm/secret/secret.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  KakaoSdk.init(nativeAppKey: 'bef258d41292f6783323f982c395e203');
+  KakaoSdk.init(nativeAppKey: Secret.nativeAppKey);
   runApp(const MyApp());
 }
 
