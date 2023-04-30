@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kakaomap_webview/kakaomap_webview.dart';
+import 'package:kkm/secret/secret.dart';
 
 class PositionChange extends StatefulWidget {
   const PositionChange({super.key});
@@ -60,11 +62,9 @@ class _PositionChangeState extends State<PositionChange> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 13.h,
-            ),
             Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 3.h),
+              padding: EdgeInsets.only(
+                  left: 20.w, right: 20.w, top: 3.h, bottom: 30.h),
               child: Container(
                   width: double.infinity,
                   child: Row(
@@ -80,12 +80,27 @@ class _PositionChangeState extends State<PositionChange> {
                               style: TextStyle(
                                   color: const Color(0xff212121),
                                   height: 1.4,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 19.sp),
                             )),
                       ),
                     ],
                   )),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 19.5.w, right: 19.5.w),
+              child: KakaoMapView(
+                  width: double.infinity,
+                  height: 400,
+                  kakaoMapKey: Secret.javascriptKey,
+                  lat: 33.450701,
+                  lng: 126.570667,
+                  showMapTypeControl: true,
+                  showZoomControl: true,
+                  markerImageURL:
+                      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+                  onTapMarker: (message) {}),
+            )
           ],
         ),
       ),
