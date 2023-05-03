@@ -133,7 +133,7 @@ class _ReviewState extends State<Review> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "나의 후기",
+                              "받은 후기",
                               style: TextStyle(
                                   color: third ? Colors.white : Colors.black,
                                   fontSize: 14.sp,
