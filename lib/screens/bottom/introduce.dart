@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/screens/positionchange.dart';
 import 'package:kkm/screens/review.dart';
+import 'package:kkm/screens/updateProfile.dart';
 import 'package:kkm/widgets/heartclothlist.dart';
 
 class Introduce extends StatefulWidget {
@@ -66,7 +67,7 @@ class _IntroduceState extends State<Introduce> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => const PositionChange()));
+                                  builder: (_) => const UpdateProfile()));
                         },
                         child: Text(
                           "내 정보 수정",
