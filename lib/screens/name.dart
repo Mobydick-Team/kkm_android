@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -262,7 +261,7 @@ class _NameState extends State<Name> {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
-      },
+      }, 
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
