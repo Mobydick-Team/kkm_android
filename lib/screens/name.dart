@@ -54,7 +54,7 @@ class _NameState extends State<Name> {
 
   void postrequest(var userdata) async {
     try {
-      String uri = 'http://3.38.220.42:3031/user/join';
+      String uri = 'http://43.200.90.238:3034/user/signup';
       // ignore: prefer_collection_literals
       Map<String, String> headers = <String, String>{
         'Authorization': 'Basic ${base64Encode(utf8.encode('user:password'))}'
@@ -261,7 +261,7 @@ class _NameState extends State<Name> {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
-      }, 
+      },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
