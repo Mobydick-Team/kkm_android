@@ -1,20 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kkm/model/login_platform.dart';
 import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
-import 'package:kkm/screens/bottom/bottom.dart';
-import 'package:kkm/screens/detailclothes.dart';
-import 'package:kkm/screens/name.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:http/http.dart' as http;
-import 'package:kkm/screens/test.dart';
+import 'package:kkm/screens/kakaowebview.dart';
+
 import 'package:kkm/secret/secret.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: Secret.nativeAppKey);
@@ -61,87 +56,8 @@ class _LoginState extends State<Login> {
   String imageurl = "";
   String id = "";
 
-  void errormessage(var error) {
-    Fluttertoast.showToast(
-        msg: "카카오톡으로 로그인 실패 $error",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-        fontSize: 16.sp);
-  }
-
-  void successmessage() {
-    Fluttertoast.showToast(
-        msg: "환영합니다!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-        fontSize: 16.sp);
-  }
-
-  void postrequest(var userdata) async {
-    try {
-      String url = 'http://3.38.220.42:3031/user/kakaoLogin?k_id=$id';
-      http.Response response =
-          await http.post(Uri.parse(url), body: <String, String>{});
-      var responseBody = utf8.decode(response.bodyBytes);
-      print(responseBody);
-      if (responseBody == "guest") {
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const Name()));
-      } else {
-        userdata.inputAccessToken(responseBody);
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const Bottombar()));
-        successmessage();
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   // ignore: prefer_final_fields
   LoginPlatform _loginPlatform = LoginPlatform.none;
-
-  void signInWithKakao(var userdata) async {
-    try {
-      bool isInstalled = await isKakaoTalkInstalled();
-
-      OAuthToken token = isInstalled
-          ? await UserApi.instance.loginWithKakaoTalk()
-          : await UserApi.instance.loginWithKakaoAccount();
-
-      final url = Uri.https('kapi.kakao.com', '/v2/user/me');
-
-      final response = await http.get(
-        url,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer ${token.accessToken}'
-        },
-      );
-
-      final profileInfo = json.decode(response.body);
-      print(profileInfo.toString());
-      imageurl = "${profileInfo['properties']['profile_image']}";
-      id = "${profileInfo['id']}";
-      userdata.inputId(id);
-      userdata.inputImage(imageurl);
-
-      setState(() {
-        _loginPlatform = LoginPlatform.kakao;
-        success = true;
-      });
-      postrequest(userdata);
-    } catch (error) {
-      errormessage(error);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +93,8 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
-                  // signInWithKakao(userData); 애뮬레이터에선 돌아가지 않기 떄문에 잠시 개발할 동안만 null 처리
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => const Name()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Webviewkakao()));
                 },
                 child: Row(
                   children: [
