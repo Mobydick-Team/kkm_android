@@ -47,7 +47,7 @@ dependencies:
   email_validator: ^2.1.17
   flutter_swiper: ^1.1.6
   flutter_spinkit: ^5.1.0
-  webview_flutter: ^3.0.4
+  webview_flutter: ^4.2.0
   dio: ^4.0.6
   intl: ^0.17.0
   ntp: ^2.0.0
@@ -62,7 +62,6 @@ dependencies:
   textfields: ^0.0.3
   expansion_tile_card: ^2.0.0
   syncfusion_flutter_sliders: ^20.4.54
-  kakaomap_webview: ^0.6.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -110,6 +109,17 @@ flutter:
     - images/logo2.png
     - images/yes.png
     - images/no.png
+    - images/test1.jpeg
+    - images/test2.jpeg
+    - images/test3.jpeg
+    - images/test4.jpeg
+    - images/test5.jpeg
+    - images/test6.jpeg
+    - images/test7.jpeg
+    - images/test8.jpeg
+    - images/test9.jpeg
+    - images/test10.jpeg
+
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
