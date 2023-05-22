@@ -648,6 +648,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  rflutter_alert:
+    dependency: "direct main"
+    description:
+      name: rflutter_alert
+      sha256: a6ab258293eefede4326d0de08929b38a0182b57c7dd94af37d3c39d85612c4e
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.6"
   shared_preferences:
     dependency: transitive
     description:
