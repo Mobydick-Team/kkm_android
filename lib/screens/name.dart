@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Name extends StatefulWidget {
   const Name({super.key});
@@ -116,37 +117,39 @@ class _NameState extends State<Name> {
             //Dialog Main Title
             title: Column(
               children: [
-                Text("정말 닉네임을",
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400)),
+                Icon(
+                  Icons.check_circle,
+                  color: const Color(0xffEEEEEE),
+                  size: 40.w,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text("닉네임을 ",
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
                     Text(
                       _nameController.text,
                       style: TextStyle(
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
-                          color: Colors.black),
+                          color: const Color(0xff536DFE)),
                     ),
-                    Text(
-                      " 으로 하실 건가요?",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400),
-                    )
                   ],
-                )
-              ],
-            ),
-            //
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+                ),
+                Text(
+                  "으로 하시겠어요?",
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 7.h),
                 Text(
                   "닉네임은 이후에 변경 가능합니다",
                   style: TextStyle(
@@ -156,40 +159,66 @@ class _NameState extends State<Name> {
                 ),
               ],
             ),
+            titlePadding: EdgeInsets.only(top: 13.h),
             actions: <Widget>[
-              ElevatedButton(
-                child: const Text("취소"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ElevatedButton(
-                child: const Text("확인"),
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => KpostalView(
-                        useLocalServer: true,
-                        localPort: 1024,
-                        callback: (Kpostal result) {
-                          setState(() {
-                            this.postCode = result.postCode;
-                            this.address = result.address;
-                            this.kakaoLatitude =
-                                result.kakaoLatitude.toString();
-                            this.kakaoLongitude =
-                                result.kakaoLongitude.toString();
-                          });
-
-                          FlutterDialog1(userdata);
-                          FlutterDialog1(userdata);
-                        },
+              Padding(
+                padding: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 8.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffEEEEEE),
+                          minimumSize: Size(110.w, 34.h),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r))),
+                      child: Text(
+                        "취소",
+                        style: TextStyle(
+                            fontSize: 13.sp, color: const Color(0xff757575)),
                       ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  );
-                },
-              ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff536DFE),
+                          minimumSize: Size(110.w, 34.h),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r))),
+                      child: Text(
+                        "완료",
+                        style: TextStyle(fontSize: 13.sp, color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => KpostalView(
+                              useLocalServer: true,
+                              localPort: 1024,
+                              callback: (Kpostal result) {
+                                setState(() {
+                                  this.postCode = result.postCode;
+                                  this.address = result.address;
+                                  this.kakaoLatitude =
+                                      result.kakaoLatitude.toString();
+                                  this.kakaoLongitude =
+                                      result.kakaoLongitude.toString();
+                                });
+
+                                FlutterDialog1(userdata);
+                                FlutterDialog1(userdata);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              )
             ],
           );
         });
