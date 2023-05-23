@@ -63,6 +63,7 @@ dependencies:
   expansion_tile_card: ^2.0.0
   syncfusion_flutter_sliders: ^20.4.54
   rflutter_alert: ^2.0.6
+  flutter_launcher_icons: ^0.13.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
