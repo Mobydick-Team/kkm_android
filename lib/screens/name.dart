@@ -151,7 +151,7 @@ class _NameState extends State<Name> {
                 ),
                 SizedBox(height: 7.h),
                 Text(
-                  "닉네임은 이후에 변경 가능합니다",
+                  "닉네임은 추후 변경 가능해요",
                   style: TextStyle(
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w400,
@@ -162,20 +162,21 @@ class _NameState extends State<Name> {
             titlePadding: EdgeInsets.only(top: 13.h),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 8.h),
+                padding: EdgeInsets.only(left: 14.w, right: 14.w, bottom: 5.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xffEEEEEE),
-                          minimumSize: Size(110.w, 34.h),
+                          elevation: 0.0,
+                          minimumSize: Size(110.w, 36.h),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r))),
+                              borderRadius: BorderRadius.circular(5.r))),
                       child: Text(
                         "취소",
                         style: TextStyle(
-                            fontSize: 13.sp, color: const Color(0xff757575)),
+                            fontSize: 14.sp, color: const Color(0xff757575)),
                       ),
                       onPressed: () {
                         Navigator.pop(context);
@@ -184,12 +185,13 @@ class _NameState extends State<Name> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff536DFE),
-                          minimumSize: Size(110.w, 34.h),
+                          minimumSize: Size(110.w, 36.h),
+                          elevation: 0.0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r))),
+                              borderRadius: BorderRadius.circular(5.r))),
                       child: Text(
                         "완료",
-                        style: TextStyle(fontSize: 13.sp, color: Colors.white),
+                        style: TextStyle(fontSize: 14.sp, color: Colors.white),
                       ),
                       onPressed: () async {
                         await Navigator.push(
@@ -233,7 +235,7 @@ class _NameState extends State<Name> {
           return AlertDialog(
             // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(10.r)),
             //Dialog Main Title
             title: Column(
               children: [
@@ -241,38 +243,61 @@ class _NameState extends State<Name> {
                     style: TextStyle(
                         fontSize: 18.sp,
                         color: Colors.black,
-                        fontWeight: FontWeight.w400)),
-              ],
-            ),
-            //
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+                        fontWeight: FontWeight.bold)),
+                SizedBox(height: 12.h),
                 Text(
-                  address,
+                  "부산 연제구 연수로 59",
                   style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xff8E8E8F)),
+                    fontSize: 12.sp,
+                    color: const Color(0xff8E8E8F),
+                  ),
                 ),
               ],
             ),
+            titlePadding: EdgeInsets.only(top: 14.h),
             actions: <Widget>[
-              ElevatedButton(
-                child: const Text("취소"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ElevatedButton(
-                child: const Text("확인"),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Bottombar()));
-                  // postrequest(userdata);
-                },
-              ),
+              Padding(
+                padding: EdgeInsets.only(left: 14.w, right: 14.w, bottom: 5.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffEEEEEE),
+                          elevation: 0.0,
+                          minimumSize: Size(110.w, 36.h),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r))),
+                      child: Text(
+                        "취소",
+                        style: TextStyle(
+                            fontSize: 14.sp, color: const Color(0xff757575)),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff536DFE),
+                          minimumSize: Size(110.w, 36.h),
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r))),
+                      child: Text(
+                        "완료",
+                        style: TextStyle(fontSize: 14.sp, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const Bottombar()));
+                      },
+                    ),
+                  ],
+                ),
+              )
             ],
           );
         });
