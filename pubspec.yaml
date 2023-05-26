@@ -39,7 +39,7 @@ dependencies:
   http: ^0.13.4
   fluttertoast: ^8.0.9
   flutter_screenutil: ^5.5.3
-  dropdown_button2: ^1.7.1
+  dropdown_button2: ^2.0.0
   flutter_image_slideshow: ^0.1.2
   carousel_indicator: ^1.0.6
   provider: ^6.0.4
