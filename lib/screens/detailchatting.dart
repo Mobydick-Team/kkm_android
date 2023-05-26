@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:kkm/screens/report.dart';
 
-
 class DetailChatting extends StatefulWidget {
   const DetailChatting({super.key});
 
@@ -22,172 +21,175 @@ class _DetailChattingState extends State<DetailChatting> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        endDrawer: SizedBox(
-            width: double.infinity,
-            child: Drawer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 6.h, left: 12.w, bottom: 20.5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+        endDrawer: SafeArea(
+          child: SizedBox(
+              width: double.infinity,
+              child: Drawer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 6.h, left: 12.w, bottom: 20.5.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                size: 21.w,
+                                color: Colors.black,
+                              )),
+                          Text(
+                            "상세정보",
+                            style: TextStyle(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              size: 21.w,
-                              color: Colors.black,
-                            )),
-                        Text(
-                          "상세정보",
-                          style: TextStyle(
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        )
+                        Icon(
+                          Icons.notifications_none,
+                          color: Colors.black,
+                          size: 22.w,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.w, right: 147.w),
+                          child: Text(
+                            "메시지 알림",
+                            style:
+                                TextStyle(fontSize: 20.sp, color: Colors.black),
+                          ),
+                        ),
+                        FlutterSwitch(
+                          width: 45.w,
+                          height: 25.h,
+                          value: status1,
+                          valueFontSize: 0.sp,
+                          padding: 2.h,
+                          activeColor: const Color(0xff555FFF),
+                          duration: const Duration(milliseconds: 100),
+                          onToggle: (val) {
+                            setState(() {
+                              status1 = val;
+                            });
+                          },
+                        ),
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.notifications_none,
-                        color: Colors.black,
-                        size: 22.w,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.w, right: 147.w),
-                        child: Text(
-                          "메시지 알림",
-                          style:
-                              TextStyle(fontSize: 20.sp, color: Colors.black),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          color: Colors.black,
+                          size: 22.w,
                         ),
-                      ),
-                      FlutterSwitch(
-                        width: 45.w,
-                        height: 25.h,
-                        value: status1,
-                        valueFontSize: 0.sp,
-                        padding: 2.h,
-                        activeColor: const Color(0xff555FFF),
-                        duration: const Duration(milliseconds: 100),
-                        onToggle: (val) {
-                          setState(() {
-                            status1 = val;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.calendar_month,
-                        color: Colors.black,
-                        size: 22.w,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.w, right: 165.w),
-                        child: Text(
-                          "약속 알림",
-                          style:
-                              TextStyle(fontSize: 20.sp, color: Colors.black),
-                        ),
-                      ),
-                      FlutterSwitch(
-                        width: 45.w,
-                        height: 25.h,
-                        value: status2,
-                        valueFontSize: 0.sp,
-                        padding: 2.h,
-                        activeColor: const Color(0xff555FFF),
-                        duration: const Duration(milliseconds: 100),
-                        onToggle: (val) {
-                          setState(() {
-                            status2 = val;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (_, __, ___) => const Report(),
-                          transitionDuration: const Duration(milliseconds: 300),
-                          transitionsBuilder: (_, a, __, c) =>
-                              FadeTransition(opacity: a, child: c),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 22.w, top: 10.h, bottom: 10.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            color: const Color(0xffD34646),
-                            size: 22.w,
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                          child: Text(
+                            "약속 알림",
+                            style:
+                                TextStyle(fontSize: 20.sp, color: Colors.black),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.w, right: 165.w),
-                            child: Text(
-                              "신고하기",
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: const Color(0xffD34646)),
+                        ),
+                        FlutterSwitch(
+                          width: 45.w,
+                          height: 25.h,
+                          value: status2,
+                          valueFontSize: 0.sp,
+                          padding: 2.h,
+                          activeColor: const Color(0xff555FFF),
+                          duration: const Duration(milliseconds: 100),
+                          onToggle: (val) {
+                            setState(() {
+                              status2 = val;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) => const Report(),
+                            transitionDuration:
+                                const Duration(milliseconds: 300),
+                            transitionsBuilder: (_, a, __, c) =>
+                                FadeTransition(opacity: a, child: c),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: 22.w, top: 10.h, bottom: 10.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.error_outline,
+                              color: const Color(0xffD34646),
+                              size: 22.w,
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                              child: Text(
+                                "신고하기",
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xffD34646)),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 22.w, top: 15.h, bottom: 10.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.logout,
-                            color: const Color(0xffD34646),
-                            size: 22.w,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.w, right: 165.w),
-                            child: Text(
-                              "채팅방 나가기",
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: const Color(0xffD34646)),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: 22.w, top: 15.h, bottom: 10.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: const Color(0xffD34646),
+                              size: 22.w,
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.w, right: 165.w),
+                              child: Text(
+                                "채팅방 나가기",
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xffD34646)),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                  ],
+                ),
+              )),
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -225,7 +227,7 @@ class _DetailChattingState extends State<DetailChatting> {
                     width: 8.w,
                   ),
                   Text(
-                    "qkqh.h",
+                    "qkqh.5",
                     style: TextStyle(
                         fontSize: 20.sp,
                         color: Colors.black,
@@ -255,15 +257,17 @@ class _DetailChattingState extends State<DetailChatting> {
           ],
           elevation: 0.0,
         ),
-        body: SingleChildScrollView(
-            child: Center(
-          child: Column(children: const [
-            SizedBox(
-              height: 50,
-            ),
-            Text("채팅창이 곧 생길 예정")
-          ]),
-        )),
+        body: SafeArea(
+          child: SingleChildScrollView(
+              child: Center(
+            child: Column(children: const [
+              SizedBox(
+                height: 50,
+              ),
+              Text("채팅창이 곧 생길 예정")
+            ]),
+          )),
+        ),
         bottomSheet: SafeArea(
           child: Padding(
               padding: EdgeInsets.only(
