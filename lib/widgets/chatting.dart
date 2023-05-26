@@ -17,14 +17,8 @@ class _ChattingState extends State<Chatting> {
   @override
   void initState() {
     for (int i = 0; i < 15; i++) {
-      chattingList.add(ChattingModel(
-          "조용제",
-          "연제구$i동",
-          "$i분전",
-          "고양이는 최고야!",
-          "https://user-images.githubusercontent.com/89582664/211428663-3d57f82b-5ee3-4cc7-be21-f6be99d37caa.png",
-          i % 2 == 1 ? 1 : 0,
-          i % 2 == 1 ? "거래 완료" : "거래 전"));
+      chattingList.add(ChattingModel("조용제", "연제구$i동", "$i분전", "고양이는 최고야!",
+          "images/cat.jpg", i % 2 == 1 ? 1 : 0, i % 2 == 1 ? "거래 완료" : "거래 전"));
     }
     super.initState();
   }
@@ -56,18 +50,22 @@ List<Widget> makeChattingList(
                 SizedBox(
                   width: 20.w,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100.r),
-                  child: Image.network(
-                    chattings[i].profile,
-                    fit: BoxFit.fill,
-                  ), // Text(key['title']),
+                Container(
+                  width: 49.w,
+                  height: 49.h,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100.r),
+                    child: Image.asset(
+                      chattings[i].profile,
+                      fit: BoxFit.fill,
+                    ), // Text(key['title']),
+                  ),
                 ),
                 SizedBox(
                   width: 200.w,
                   height: 60.h,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8.w),
+                    padding: EdgeInsets.only(left: 12.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,49 +95,27 @@ List<Widget> makeChattingList(
                         ),
                         Text(
                           chattings[i].lastChatting,
-                          style:
-                              TextStyle(fontSize: 14.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500),
                         )
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  width: 52.w,
-                  height: 23.h,
-                  decoration: BoxDecoration(
-                      color: chattings[i].status == "거래 중"
-                          ? const Color(0xffA5D9FF)
-                          : chattings[i].status == "거래 전"
-                              ? const Color(0xffFFB7D2)
-                              : const Color(0xffFFCC66),
-                      borderRadius: BorderRadius.all(Radius.circular(20.r))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        chattings[i].status,
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
                   width: 23.w,
                   height: 23.h,
-                  margin: EdgeInsets.only(left: 4.w),
+                  margin: EdgeInsets.only(left: 35.w),
                   decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.red),
+                      shape: BoxShape.circle, color: Color(0xff555FFF)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "2",
+                        "${chattings[i].alarm}",
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.white,
