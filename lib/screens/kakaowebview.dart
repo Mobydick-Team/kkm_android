@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:kkm/data/http_client.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
-import 'package:kkm/screens/name.dart';
+import 'package:kkm/screens/signup/name.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
