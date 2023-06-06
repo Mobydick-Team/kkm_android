@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/writingreview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/write.dart';
 
 class WritingReviews extends StatefulWidget {
   const WritingReviews({super.key});
@@ -122,7 +123,10 @@ List<Widget> makeReviews(BuildContext context, List<WritingReview> reviews) {
             width: 66.w,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => const Write()));
+            },
             child: Text(
               "후기 작성",
               style: TextStyle(
