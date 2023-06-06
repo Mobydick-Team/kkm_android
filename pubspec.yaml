@@ -33,7 +33,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   flutter_joystick: ^0.0.2
-  image_picker: ^0.8.5+3
   carousel_slider: ^4.1.1
   custom_radio_grouped_button: ^2.1.2
   http: ^0.13.4
@@ -64,6 +63,7 @@ dependencies:
   syncfusion_flutter_sliders: ^20.4.54
   rflutter_alert: ^2.0.6
   flutter_launcher_icons: ^0.13.1
+  image_picker: ^0.8.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -121,6 +121,8 @@ flutter:
     - images/test8.jpeg
     - images/test9.jpeg
     - images/test10.jpeg
+    - images/nologo.png
+    - images/smile.png
 
 
   # To add custom fonts to your application, add a fonts section here,
