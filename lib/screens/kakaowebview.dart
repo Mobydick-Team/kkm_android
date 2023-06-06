@@ -26,7 +26,7 @@ class _WebviewState extends State<Webviewkakao> {
   String code = "";
   String url = "https://bgit.bssm.kro.kr/oauth/bsm";
   String accessToken = "";
-  var userdata;
+  var userData;
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
@@ -35,7 +35,7 @@ class _WebviewState extends State<Webviewkakao> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      userdata = Provider.of<UserData>(context, listen: false);
+      userData = Provider.of<UserData>(context, listen: false);
     });
     _webViewController = WebViewController()
       ..loadRequest(Uri.parse(
@@ -48,7 +48,7 @@ class _WebviewState extends State<Webviewkakao> {
           setState(() {
             code = request.url.split("?code=")[1];
           });
-          getrequest(userdata, code);
+          getrequest(userData, code);
           return NavigationDecision.prevent;
         } else if (request.url.contains(url)) {}
 
@@ -99,11 +99,12 @@ class _WebviewState extends State<Webviewkakao> {
 
   void getrequest(var userdata, String code) async {
     try {
-      String url = 'http://43.200.90.238:3034/auth/kakao/info?code=$code';
+      String url = 'http://43.200.19.51:3034/auth/kakao/info?code=$code';
       var parsingData = await sendGetRequest(url, context);
       print(parsingData);
       if (parsingData != null) {
         if (parsingData['signedUp'] != true) {
+          userdata.inputId(parsingData['kakaoUserInfoResponse']['id']);
           // ignore: use_build_context_synchronously
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => const Name()));
