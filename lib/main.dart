@@ -5,6 +5,7 @@ import 'package:kkm/model/login_platform.dart';
 import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kkm/screens/kakaowebview.dart';
 
 import 'package:kkm/secret/secret.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp, // 세로 정방향만 사용할 수 있다.
+      DeviceOrientation.portraitUp,  // 세로 정방향만 사용할 수 있다.
       // DeviceOrientation.portraitDown,
       // DeviceOrientation.landscapeLeft,
       // DeviceOrientation.landscapeRight,
