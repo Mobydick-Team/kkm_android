@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kkm/common/common.dart';
+import 'package:kkm/data/http_client.dart';
 import 'package:kkm/data/my_loaction.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
@@ -25,6 +26,7 @@ class _NameState extends State<Name> {
   final _nameController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
+  bool sameCheck = false;
   bool error = false;
   String postCode = '-';
   String address = '-';
@@ -61,6 +63,31 @@ class _NameState extends State<Name> {
         backgroundColor: Colors.grey,
         textColor: Colors.white,
         fontSize: 16.sp);
+  }
+
+  void getrequest(var userData) async {
+    try {
+      String url =
+          'http://43.200.19.51:3034/user/check/${_nameController.text}';
+      var parsingData = await sendGetRequest(url, context);
+      print(parsingData);
+      if (parsingData != null) {
+        if (parsingData['exist'] == true) {
+          setState(() {
+            sameCheck = true;
+          });
+        } else {
+          setState(() {
+            sameCheck = false;
+          });
+          userData.inputName(_nameController.text);
+          userData.inputLocation(latitude, longitude);
+          FlutterDialog(userData);
+        }
+      } else {}
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void postrequest(var userdata) async {
@@ -205,30 +232,8 @@ class _NameState extends State<Name> {
                       style: TextStyle(fontSize: 14.sp, color: Colors.white),
                     ),
                     onPressed: () async {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (_) => const Picture()));
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => KpostalView(
-                            useLocalServer: true,
-                            localPort: 1024,
-                            callback: (Kpostal result) {
-                              setState(() {
-                                this.postCode = result.postCode;
-                                this.address = result.address;
-                                this.kakaoLatitude =
-                                    result.kakaoLatitude.toString();
-                                this.kakaoLongitude =
-                                    result.kakaoLongitude.toString();
-                              });
-
-                              FlutterDialog1(userdata);
-                              FlutterDialog1(userdata);
-                            },
-                          ),
-                        ),
-                      );
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const Picture()));
                     },
                   ),
                 ],
@@ -247,26 +252,46 @@ class _NameState extends State<Name> {
           return AlertDialog(
             // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.r)),
+                borderRadius: BorderRadius.circular(10.0)),
             //Dialog Main Title
             title: Column(
               children: [
-                Text("회원가입 하시겠습니까?",
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold)),
-                SizedBox(height: 12.h),
+                Icon(
+                  Icons.check_circle,
+                  color: const Color(0xffEEEEEE),
+                  size: 40.w,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "회원가입",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: const Color(0xff536DFE)),
+                    ),
+                    Text("를 완료했어요!",
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                SizedBox(height: 7.h),
                 Text(
-                  address,
+                  "꼬꼬막의 일원이 돼 주셔서 감사해요",
                   style: TextStyle(
-                    fontSize: 12.sp,
-                    color: const Color(0xff8E8E8F),
-                  ),
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff8E8E8F)),
                 ),
               ],
             ),
-            titlePadding: EdgeInsets.only(top: 14.h),
+            titlePadding: EdgeInsets.only(top: 13.h),
             actions: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -438,10 +463,24 @@ class _NameState extends State<Name> {
                           )
                         ],
                       ))
-                  : Padding(
-                      padding: EdgeInsets.only(top: 13.h),
-                      child: Text(""),
-                    ),
+                  : sameCheck
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 13.h, left: 21.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "이미 사용 중인 닉네임이에요",
+                                style: TextStyle(
+                                    fontSize: 11.sp,
+                                    color: const Color(0xffD34646)),
+                              )
+                            ],
+                          ))
+                      : Padding(
+                          padding: EdgeInsets.only(top: 13.h),
+                          child: Text(""),
+                        ),
               Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 25.h),
                 child: ElevatedButton(
@@ -460,7 +499,7 @@ class _NameState extends State<Name> {
                               setState(() {
                                 error = false;
                               });
-                              FlutterDialog(userData);
+                              getrequest(userData);
                             } else {
                               setState(() {
                                 error = true;
