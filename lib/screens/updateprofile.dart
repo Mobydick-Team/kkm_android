@@ -1,7 +1,9 @@
-import 'dart:ui';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kkm/screens/bottom/bottom.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -18,11 +20,115 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final _addressController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool error = false;
+  bool input = false;
+  var image;
+  var userImage;
+  bool isImage = false;
 
   @override
   void initState() {
     super.initState();
     _addressController.text = nowAddress;
+  }
+
+  void FlutterDialog() {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: const Color(0xffEEEEEE),
+                  size: 40.w,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("내 정보를 ",
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                      "변경",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: const Color(0xff536DFE)),
+                    ),
+                    Text("하시겠어요?",
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                SizedBox(height: 7.h),
+                Text(
+                  "정보는 계속 변경할 수 있어요",
+                  style: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff8E8E8F)),
+                ),
+              ],
+            ),
+            titlePadding: EdgeInsets.only(top: 13.h),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffEEEEEE),
+                        elevation: 0.0,
+                        minimumSize: Size(110.w, 36.h),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.r))),
+                    child: Text(
+                      "취소",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff757575)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(
+                    width: 7.w,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff536DFE),
+                        minimumSize: Size(110.w, 36.h),
+                        elevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.r))),
+                    child: Text(
+                      "완료",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const Bottombar()));
+                    },
+                  ),
+                ],
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -59,14 +165,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
       bottomSheet: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom + 33.h,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 19.h,
             left: 21.w,
             right: 21.w,
           ),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              FlutterDialog();
+            },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xffDFE6FF),
+              backgroundColor: input == true
+                  ? const Color(0xff595FFF)
+                  : const Color(0xffDFE6FF),
+              elevation: 0.0,
               minimumSize: Size(double.infinity, 46.h),
             ),
             child: Text(
@@ -105,40 +216,75 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 322.w,
-                          height: 322.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6.r),
-                            image: const DecorationImage(
-                              image: AssetImage("images/cat.jpg"),
-                              fit: BoxFit.fill,
+                    child: InkWell(
+                      onTap: () async {
+                        var picker = ImagePicker();
+                        image =
+                            await picker.pickImage(source: ImageSource.gallery);
+                        if (image != null) {
+                          setState(() {
+                            userImage = File(image.path);
+                            isImage = true;
+                          });
+                        }
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 322.w,
+                            height: 322.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: isImage == true
+                                ? Image.file(
+                                    userImage,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.asset(
+                                    "images/cat.jpg",
+                                    fit: BoxFit.fill,
+                                  ),
+                          ),
+                          Container(
+                            width: 322.w,
+                            height: 322.h,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6.r)),
+                            ),
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
                             ),
                           ),
-                        ),
-                        Container(
-                          width: 322.w,
-                          height: 322.h,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(6.r)),
-                          ),
-                        ),
-                        Container(
-                          width: 322.w,
-                          height: 322.h,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage("images/cat.jpg"),
-                              fit: BoxFit.fill,
+                          ClipOval(
+                            child: SizedBox(
+                              width: 322.w,
+                              height: 322.h,
+                              child: isImage == true
+                                  ? Image.file(
+                                      userImage,
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Image.asset(
+                                      "images/cat.jpg",
+                                      fit: BoxFit.fill,
+                                    ),
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 322.h,
+                            width: 322.w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Row(
@@ -154,7 +300,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(),
+                    margin: EdgeInsets.only(top: 8.h, bottom: 20.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(13.r)),
                       border: error
@@ -171,7 +317,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
-                        hintText: _nameController.text,
+                        hintText: nowName,
                         hintStyle: TextStyle(
                           fontSize: 14.sp,
                           color: const Color(0xff8E8E8F),
@@ -201,7 +347,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               ),
                       ),
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          if (_nameController.text.length > 1) {
+                            setState(() {
+                              input = true;
+                            });
+                          } else {
+                            setState(() {
+                              input = false;
+                            });
+                          }
+                        });
                       },
                       onTap: () {
                         if (!_focusNode.hasFocus) {
@@ -273,7 +429,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                   SizedBox(
                       height: MediaQuery.of(context).viewInsets.bottom +
-                          33.h), // 수정된 코드
+                          100.h), // 수정된 코드
                 ],
               ),
             ),
