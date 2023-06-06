@@ -15,6 +15,9 @@ class _ProfileState extends State<Profile> {
   int change = 369;
   int writing = 12;
   int km = 24;
+  ScrollController scrollController = ScrollController();
+  bool showbtn = false;
+
   final List<ClothesList> userClothesList = <ClothesList>[];
   @override
   void initState() {
@@ -29,7 +32,23 @@ class _ProfileState extends State<Profile> {
           3000,
           "부산광역시 연제구"));
     }
+    scrollController.addListener(() {
+      //scroll listener
+      double showoffset =
+          85.h; //Back to top botton will show on scroll offset 10.0
 
+      if (scrollController.offset > showoffset) {
+        showbtn = true;
+        setState(() {
+          //update state
+        });
+      } else {
+        showbtn = false;
+        setState(() {
+          //update state
+        });
+      }
+    });
     super.initState();
   }
 
@@ -39,6 +58,7 @@ class _ProfileState extends State<Profile> {
       appBar: null,
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: scrollController,
           child: Stack(children: [
             Container(
               width: double.infinity,
@@ -69,11 +89,25 @@ class _ProfileState extends State<Profile> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 59.h, bottom: 37.h),
-                      child: Text(
-                        "나재민",
-                        style: TextStyle(
-                            fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      padding: EdgeInsets.only(top: 59.h, bottom: 10.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "나재민",
+                            style: TextStyle(
+                                fontSize: 18.sp, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "경상남도 양산시 평산동",
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: const Color(0xff616161)),
+                          )
+                        ],
                       ),
                     ),
                     Container(
@@ -220,6 +254,33 @@ class _ProfileState extends State<Profile> {
               child: const Clothes(),
             )
           ]),
+        ),
+      ),
+      floatingActionButton: AnimatedOpacity(
+        duration: const Duration(milliseconds: 0), //show/hide animation
+        opacity: showbtn ? 1.0 : 0.0, //set obacity to 1 on visible, or hide
+        child: Container(
+          height: 55.h,
+          width: 55.w,
+          child: FittedBox(
+            child: FloatingActionButton(
+                elevation: 10.0,
+                onPressed: () {
+                  scrollController.animateTo(
+                      //go to top of scroll
+                      0.0,
+                      duration: const Duration(
+                          milliseconds: 450), //duration of scroll
+                      curve: Curves.fastOutSlowIn //scroll type
+                      );
+                },
+                child: Icon(
+                  Icons.keyboard_arrow_up,
+                  size: 30.w,
+                  color: Colors.black,
+                ),
+                backgroundColor: Colors.white.withOpacity(0.79)),
+          ),
         ),
       ),
     );
