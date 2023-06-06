@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
 
 class UserData extends ChangeNotifier {
-  String _accessToekn = '';
+  String _accessToken = '';
   String _userImage = '';
-  String _userId = '';
+  int _userId = 0;
   String _userName = '';
   String _useraddress = '';
+  double _lat = 0;
+  double _lon = 0;
 
-  String get accessToken => _accessToekn;
+  String get accessToken => _accessToken;
   String get userName => _userName;
-  String get userId => _userId;
+  int get userId => _userId;
   String get userImage => _userImage;
   String get useraddress => _useraddress;
+  double get lat => _lat;
+  double get lon => _lon;
 
   void inputUserAddress(String userAddress) {
     _useraddress = userAddress;
   }
 
+  void inputLocation(double lat, double lon) {
+    _lat = lat;
+    _lon = lon;
+    notifyListeners();
+  }
+
   void inputAccessToken(String accessToken) {
-    _accessToekn = accessToken;
+    _accessToken = accessToken;
     notifyListeners();
   }
 
@@ -27,7 +37,7 @@ class UserData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void inputId(String userId1) {
+  void inputId(int userId1) {
     _userId = userId1;
     notifyListeners();
   }
