@@ -47,7 +47,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_spinkit: ^5.1.0
   webview_flutter: ^4.2.0
-  dio: ^4.0.6
+  dio: ^5.2.0
   intl: ^0.17.0
   ntp: ^2.0.0
   adaptive_dialog: ^1.8.0+1
