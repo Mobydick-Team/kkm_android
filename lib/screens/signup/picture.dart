@@ -10,7 +10,7 @@ import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:image/image.dart' as img;
+import 'package:dio/dio.dart';
 
 class Picture extends StatefulWidget {
   const Picture({super.key});
@@ -30,6 +30,60 @@ class _PictureState extends State<Picture> {
   double longitude = 0.0;
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: const EdgeInsets.all(5),
+          child: SizedBox(
+            height: 140.h,
+            width: 60.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> uploadImage(File file, var userData) async {
+    print("실행됨");
+    _onLoading();
+    var dio = Dio();
+
+    FormData formData = FormData.fromMap({
+      "data": {
+        "nickname": userData.userName,
+        "userId": userData.userId,
+        "latitude": userData.lat,
+        "longitude": userData.lon,
+        "address": "연수로 192번지"
+      },
+      "profileImg": {
+        await MultipartFile.fromFile(file.path, filename: "file"),
+      }
+    });
+
+    Response response =
+        await dio.post("http://43.200.19.51:3034/user/signup", data: formData);
+
+    Navigator.pop(context);
+    print(response.statusCode);
+    print(response.data);
+    if (response.statusCode == 200) {
+      print("statuscode가 200임");
+      FlutterDialog1(userData);
+    } else {
+      print("statuscode를 가 이상함");
+    }
+  }
 
   void FlutterDialog1(var userdata) {
     showDialog(
@@ -310,27 +364,7 @@ class _PictureState extends State<Picture> {
                     ),
                     backgroundColor: CommonColor.blue),
                 onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => KpostalView(
-                        useLocalServer: true,
-                        localPort: 1024,
-                        callback: (Kpostal result) async {
-                          setState(() {
-                            this.postCode = result.postCode;
-                            this.address = result.address;
-                            this.kakaoLatitude =
-                                result.kakaoLatitude.toString();
-                            this.kakaoLongitude =
-                                result.kakaoLongitude.toString();
-                          });
-                          userData.inputUserAddress(address);
-                          await sendRequest(userData, userImage);
-                        },
-                      ),
-                    ),
-                  );
+                  await uploadImage(userImage, userData);
                 },
                 child: Text(
                   "다음",
