@@ -364,7 +364,23 @@ class _PictureState extends State<Picture> {
                     ),
                     backgroundColor: CommonColor.blue),
                 onPressed: () async {
-                  await uploadImage(userImage, userData);
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => KpostalView(
+                        useLocalServer: true,
+                        localPort: 1024,
+                        // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
+                        callback: (Kpostal result) {
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  );
+                  print("하이");
+                  FlutterDialog1(userData);
+                  FlutterDialog1(userData);
+                  // await uploadImage(userImage, userData);
                 },
                 child: Text(
                   "다음",
