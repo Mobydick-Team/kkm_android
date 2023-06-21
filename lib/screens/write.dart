@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/bottom/bottom.dart';
 
 class Write extends StatefulWidget {
   const Write({super.key});
@@ -96,7 +97,10 @@ class _WriteState extends State<Write> {
                       "완료",
                       style: TextStyle(fontSize: 14.sp, color: Colors.white),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const Bottombar()));
+                    },
                   ),
                 ],
               )
