@@ -16,6 +16,7 @@ class _IntroduceState extends State<Introduce> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: null,
       body: Center(
