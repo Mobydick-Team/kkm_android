@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,  // 세로 정방향만 사용할 수 있다.
+      DeviceOrientation.portraitUp, // 세로 정방향만 사용할 수 있다.
       // DeviceOrientation.portraitDown,
       // DeviceOrientation.landscapeLeft,
       // DeviceOrientation.landscapeRight,
@@ -94,8 +94,11 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (_) => const Webviewkakao()));
+
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Webviewkakao()));
+                      MaterialPageRoute(builder: (_) => const Bottombar()));
                 },
                 child: Row(
                   children: [
