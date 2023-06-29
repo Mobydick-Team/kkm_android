@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kkm/provider/user.dart';
+import 'package:kkm/screens/selectct.dart';
 import 'package:provider/provider.dart';
 
 class Write extends StatefulWidget {
@@ -18,7 +20,15 @@ class _WriteState extends State<Write> {
   var image;
   var userImage;
   int pictureCount = 0;
-  final _writeController = TextEditingController();
+  final _writeController1 = TextEditingController();
+  final _writeController2 = TextEditingController();
+  final _writeController3 = TextEditingController();
+  final _writeController4 = TextEditingController();
+
+  bool writing1 = false;
+  bool writing2 = false;
+  bool writing3 = false;
+  bool writing4 = false;
 
   void toastmessage() {
     Fluttertoast.showToast(
@@ -139,11 +149,22 @@ class _WriteState extends State<Write> {
                     height: 40.h,
                     margin: EdgeInsets.only(left: 22.w, right: 22.w, top: 20.h),
                     child: TextField(
-                      controller: _writeController,
+                      controller: _writeController1,
                       style: TextStyle(
                           fontSize: 24.sp,
                           color: const Color(0xff616161),
                           fontWeight: FontWeight.w500),
+                      onChanged: (value) {
+                        if (value.isEmpty == false) {
+                          setState(() {
+                            writing1 = true;
+                          });
+                        } else {
+                          setState(() {
+                            writing1 = false;
+                          });
+                        }
+                      },
                       maxLines: 1,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -157,7 +178,7 @@ class _WriteState extends State<Write> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.w, top: 12.h),
+                    padding: EdgeInsets.only(left: 20.w, top: 8.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -199,23 +220,41 @@ class _WriteState extends State<Write> {
                               SizedBox(
                                 width: 7.w,
                               ),
-                              Container(
+                              SizedBox(
                                 width: 60.w,
-                                child: TextField(
-                                  controller: _writeController,
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xff424242),
-                                      fontWeight: FontWeight.w400),
-                                  maxLines: 1,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: '금액 입력',
-                                    hintStyle: TextStyle(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 15.h),
+                                  child: TextField(
+                                    controller: _writeController2,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    style: TextStyle(
                                         fontSize: 14.sp,
                                         color: const Color(0xffBEBEBE),
                                         fontWeight: FontWeight.w400),
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      if (value.isEmpty == false) {
+                                        setState(() {
+                                          writing2 = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          writing2 = false;
+                                        });
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      hintText: '금액 입력',
+                                      hintStyle: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: const Color(0xffBEBEBE),
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -249,33 +288,49 @@ class _WriteState extends State<Write> {
                         SizedBox(
                           width: 15.w,
                         ),
-                        Align(
-                          child: Container(
-                            height: 35.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                                color: const Color(0xffF5F5F5),
-                                borderRadius: BorderRadius.circular(7.r)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "₩",
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xffBEBEBE)),
-                                ),
-                                SizedBox(
-                                  width: 7.w,
-                                ),
-                                Container(
-                                  width: 60.w,
+                        Container(
+                          height: 35.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                              color: const Color(0xffF5F5F5),
+                              borderRadius: BorderRadius.circular(7.r)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "₩",
+                                style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: const Color(0xffBEBEBE)),
+                              ),
+                              SizedBox(
+                                width: 7.w,
+                              ),
+                              SizedBox(
+                                width: 60.w,
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 15.h),
                                   child: TextField(
-                                    controller: _writeController,
+                                    controller: _writeController3,
+                                    onChanged: (value) {
+                                      if (value.isEmpty == false) {
+                                        setState(() {
+                                          writing3 = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          writing3 = false;
+                                        });
+                                      }
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     style: TextStyle(
                                         fontSize: 14.sp,
-                                        color: const Color(0xff424242),
+                                        color: const Color(0xffBEBEBE),
                                         fontWeight: FontWeight.w400),
                                     maxLines: 1,
                                     decoration: InputDecoration(
@@ -289,19 +344,133 @@ class _WriteState extends State<Write> {
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         )
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 5.h,
+                    color: const Color(0xffEEEEEE),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const SelectCategory()));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 20.w,
+                        right: 20.w,
+                        top: 21.5.h,
+                      ),
+                      child: Container(
+                        height: 30.h,
+                        width: double.infinity,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "액세서리",
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff424242),
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: const Color(0xff424242),
+                              size: 12.w,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity, // 최대 너비 설정
+                    height: 264.h,
+                    margin: EdgeInsets.only(left: 22.w, right: 22.w, top: 10.h),
+                    child: TextField(
+                      controller: _writeController4,
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff424242)),
+                      maxLines: null, // 자동 줄 바꿈을 위해 maxLines를 null로 설정
+                      onChanged: (value) {
+                        if (value.isEmpty == false) {
+                          setState(() {
+                            writing4 = true;
+                          });
+                        } else {
+                          setState(() {
+                            writing4 = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: '상품에 대한 자세한 설명을 적어주세요',
+                        hintStyle: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color(0xffBDBDBD),
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
       ),
+      bottomSheet: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              color: Colors.white,
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom + 25.h),
+                  child: ElevatedButton(
+                    onPressed: pictureCount > 0 &&
+                            writing1 == true &&
+                            writing2 == true &&
+                            writing3 == true &&
+                            writing4 == true
+                        ? () {
+                            //postrequest
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: pictureCount > 0 &&
+                                writing1 == true &&
+                                writing2 == true &&
+                                writing3 == true &&
+                                writing4 == true
+                            ? const Color(0xff595FFF)
+                            : const Color(0xffDFE6FF),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r)),
+                        minimumSize: Size(320.w, 50.h)),
+                    child: Text("완료",
+                        style: TextStyle(fontSize: 16.sp, color: Colors.white)),
+                  )),
+            ),
+          ],
+        ),
+      ),
+      //bottomsheet
     );
   }
 
@@ -359,6 +528,7 @@ class _WriteState extends State<Write> {
         ),
       ));
     }
+
     return results;
   }
 }
