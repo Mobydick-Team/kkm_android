@@ -11,6 +11,7 @@ import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 
 class Picture extends StatefulWidget {
   const Picture({super.key});
@@ -53,36 +54,52 @@ class _PictureState extends State<Picture> {
     );
   }
 
-  Future<void> uploadImage(File file, var userData) async {
+  Future<void> uploadImage(File file, UserData user) async {
     print("실행됨");
-    _onLoading();
+
     var dio = Dio();
+    print(user.userName);
+    print(user.userId);
+    print(user.lat);
+    print(user.lon);
 
     FormData formData = FormData.fromMap({
       "data": {
-        "nickname": userData.userName,
-        "userId": userData.userId,
-        "latitude": userData.lat,
-        "longitude": userData.lon,
-        "address": "연수로 192번지"
+        "nickname": user.userName,
+        "userId": user.userId,
+        "latitude": user.lat,
+        "longitude": user.lon,
+        "address": "연제구 연수로 192"
       },
-      "profileImg": {
-        await MultipartFile.fromFile(file.path, filename: "file"),
-      }
+      "profileImg": [
+        await MultipartFile.fromFile(file.path,
+            filename: "file",
+            contentType: MediaType.parse('multipart/form-data')),
+      ],
     });
+    Response response = await dio.post(
+      "http://43.200.19.51:3034/user/signup",
+      data: formData,
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+        headers: <String, String>{
+          'Content-Type': 'multipart/form-data',
+        },
+      ),
+    );
 
-    Response response =
-        await dio.post("http://43.200.19.51:3034/user/signup", data: formData);
-
-    Navigator.pop(context);
     print(response.statusCode);
     print(response.data);
     if (response.statusCode == 200) {
       print("statuscode가 200임");
-      FlutterDialog1(userData);
+      FlutterDialog1(user);
     } else {
       print("statuscode를 가 이상함");
     }
+    print(response.toString());
   }
 
   void FlutterDialog1(var userdata) {
@@ -380,6 +397,9 @@ class _PictureState extends State<Picture> {
                   print("하이");
                   FlutterDialog1(userData);
                   FlutterDialog1(userData);
+                  // ignore: use_build_context_synchronously
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (_) => const Bottombar()));
                   // await uploadImage(userImage, userData);
                 },
                 child: Text(
