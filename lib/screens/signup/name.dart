@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -87,50 +87,6 @@ class _NameState extends State<Name> {
       } else {}
     } catch (e) {
       print(e.toString());
-    }
-  }
-
-  void postrequest(var userdata) async {
-    try {
-      String uri = 'http://43.200.90.238:3034/user/signup';
-      // ignore: prefer_collection_literals
-      Map<String, String> headers = <String, String>{
-        'Authorization': 'Basic ${base64Encode(utf8.encode('user:password'))}'
-      };
-
-      var map = Map<String, dynamic>();
-      print("user_id : 0");
-      print('nickname : ${_nameController.text}');
-      print('k_id : ${userdata.userId}');
-      print('k_img_url : ${userdata.userImage}');
-      print('lat : ${latitude}');
-      print('lon : $longitude');
-      print('address : $address');
-      map['user_id'] = '0';
-      map['nickname'] = _nameController.text;
-      map['k_id'] = userdata.userId;
-      map['k_img_url'] = userdata.userImage;
-      map['lat'] = '$latitude';
-      map['lon'] = '$longitude';
-      map['address'] = address;
-      map['kkm'] = '0';
-      http.Response response = await http.post(
-        Uri.parse(uri),
-        headers: headers,
-        body: map,
-      );
-
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        successmessage();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const Bottombar()));
-      } else {
-        errormessage();
-      }
-      // userdata.inputAccessToken();
-    } catch (e) {
-      print(e);
     }
   }
 
