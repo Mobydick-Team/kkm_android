@@ -125,6 +125,15 @@ flutter:
     - images/nologo.png
     - images/smile.png
     - images/camera3.png
+    - images/category/1.png
+    - images/category/2.png
+    - images/category/3.png
+    - images/category/4.png
+    - images/category/5.png
+    - images/category/6.png
+    - images/category/7.png
+    - images/category/8.png
+    - images/category/9.png
 
 
   # To add custom fonts to your application, add a fonts section here,
