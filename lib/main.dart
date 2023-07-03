@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/model/login_platform.dart';
 import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
-import 'package:kkm/screens/kakaowebview.dart';
 
 import 'package:kkm/secret/secret.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: Secret.nativeAppKey);
+
   runApp(const MyApp());
 }
 
@@ -58,11 +56,9 @@ class _LoginState extends State<Login> {
   String id = "";
 
   // ignore: prefer_final_fields
-  LoginPlatform _loginPlatform = LoginPlatform.none;
 
   @override
   Widget build(BuildContext context) {
-    var userData = Provider.of<UserData>(context);
     return Scaffold(
       appBar: null,
       body: Center(
