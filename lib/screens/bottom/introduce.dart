@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/screens/myclothes.dart';
-import 'package:kkm/screens/positionchange.dart';
-import 'package:kkm/screens/review.dart';
-import 'package:kkm/screens/updateProfile.dart';
-import 'package:kkm/screens/zaamclothes.dart';
+import 'package:kkm/screens/bottom/introduce/myclothes.dart';
+import 'package:kkm/screens/bottom/introduce/review.dart';
+import 'package:kkm/screens/bottom/introduce/updateprofile.dart';
+import 'package:kkm/screens/bottom/introduce/zaamclothes.dart';
 import 'package:kkm/widgets/heartclothlist.dart';
 
 class Introduce extends StatefulWidget {
