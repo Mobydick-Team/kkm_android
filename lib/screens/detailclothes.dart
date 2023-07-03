@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/provider/emphasis.dart';
-import 'package:kkm/screens/detailchatting.dart';
 import 'package:kkm/screens/profile.dart';
-import 'package:kkm/screens/test1.dart';
 import 'package:kkm/widgets/anotherclothes.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:animations/animations.dart';
 
 class DetailClothes extends StatefulWidget {
   const DetailClothes({super.key});
