@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/clothes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/screens/detailclothes.dart';
 
 class HeartClothes extends StatefulWidget {
   const HeartClothes({super.key});
@@ -15,6 +14,7 @@ class _HeartClothListState extends State<HeartClothes> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     print("실행됨");
     for (int i = 0; i < 9; i++) {
@@ -26,7 +26,9 @@ class _HeartClothListState extends State<HeartClothes> {
           "메린의 미친 옷",
           1000,
           3000,
-          "부산광역시 연제구"));
+          "부산광역시 연제구",
+          false,
+          false));
     }
   }
 
