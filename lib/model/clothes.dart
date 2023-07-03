@@ -7,6 +7,17 @@ class ClothesList {
   int deposit;
   int rentalfee;
   String location;
-  ClothesList(this.userName, this.isheartpressed, this.image, this.price,
-      this.clothName, this.deposit, this.rentalfee, this.location);
+  bool transaction;
+  bool isheart;
+  ClothesList(
+      this.userName,
+      this.isheartpressed,
+      this.image,
+      this.price,
+      this.clothName,
+      this.deposit,
+      this.rentalfee,
+      this.location,
+      this.transaction,
+      this.isheart);
 }
