@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/model/clothes.dart';
-import 'package:kkm/model/user.dart';
 import 'package:kkm/widgets/clothlist.dart';
 
 class Profile extends StatefulWidget {
@@ -30,7 +29,9 @@ class _ProfileState extends State<Profile> {
           "메린의 미친 옷",
           1000,
           3000,
-          "부산광역시 연제구"));
+          "부산광역시 연제구",
+          false,
+          false));
     }
     scrollController.addListener(() {
       //scroll listener
