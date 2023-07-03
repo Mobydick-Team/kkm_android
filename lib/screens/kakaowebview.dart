@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kkm/data/http_client.dart';
 import 'package:kkm/provider/user.dart';
@@ -9,7 +5,6 @@ import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kkm/screens/signup/name.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,8 +22,6 @@ class _WebviewState extends State<Webviewkakao> {
   String url = "https://bgit.bssm.kro.kr/oauth/bsm";
   String accessToken = "";
   var userData;
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
 
   WebViewController? _webViewController;
   @override
