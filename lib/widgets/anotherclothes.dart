@@ -26,7 +26,9 @@ class _AnotherClothesState extends State<AnotherClothes> {
           "메린의 미친 옷",
           1000,
           3000,
-          "부산광역시 연제구"));
+          "부산광역시 연제구",
+          false,
+          false));
     }
   }
 
