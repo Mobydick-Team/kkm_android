@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,12 +6,9 @@ import 'package:kkm/data/http_client.dart';
 import 'package:kkm/data/my_loaction.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
-import 'package:http/http.dart' as http;
 import 'package:kkm/screens/signup/picture.dart';
-import 'package:kpostal/kpostal.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Name extends StatefulWidget {
   const Name({super.key});
