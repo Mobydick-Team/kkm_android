@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/myclothes.dart';
 import 'package:kkm/screens/positionchange.dart';
 import 'package:kkm/screens/review.dart';
 import 'package:kkm/screens/updateProfile.dart';
+import 'package:kkm/screens/zaamclothes.dart';
 import 'package:kkm/widgets/heartclothlist.dart';
 
 class Introduce extends StatefulWidget {
@@ -189,28 +191,34 @@ class _IntroduceState extends State<Introduce> {
               ),
             ),
 
-            Padding(
-              padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 28.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset("images/post1.png"),
-                  Text(
-                    "내 게시물",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.sp,
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const MyClohtes()));
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 21.w, right: 21.w, top: 28.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset("images/post1.png"),
+                    Text(
+                      "내 게시물",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 205.w,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: const Color(0xff8E8E8F),
-                    size: 15.h,
-                  ),
-                ],
+                    SizedBox(
+                      width: 205.w,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: const Color(0xff8E8E8F),
+                      size: 15.h,
+                    ),
+                  ],
+                ),
               ),
             ),
             const SingleChildScrollView(
@@ -218,32 +226,38 @@ class _IntroduceState extends State<Introduce> {
             SizedBox(
               height: 20.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 21.w, right: 21.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    color: const Color(0xffFF5160),
-                    size: 15.h,
-                  ),
-                  Text(
-                    "쩀한 게시물",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.sp,
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const ZaamClothes()));
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 21.w, right: 21.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      color: const Color(0xffFF5160),
+                      size: 15.h,
                     ),
-                  ),
-                  SizedBox(
-                    width: 205.w,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: const Color(0xff8E8E8F),
-                    size: 15.h,
-                  ),
-                ],
+                    Text(
+                      "쩀한 게시물",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 205.w,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: const Color(0xff8E8E8F),
+                      size: 15.h,
+                    ),
+                  ],
+                ),
               ),
             ),
             const SingleChildScrollView(
