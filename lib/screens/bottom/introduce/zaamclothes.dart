@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/widgets/clothlist.dart';
+import 'package:kkm/widgets/myclotheslist.dart';
 
 class ZaamClothes extends StatefulWidget {
   const ZaamClothes({super.key});
@@ -69,7 +70,7 @@ class _MyClohtesState extends State<ZaamClothes> {
         child: const Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Clothes()],
+            children: [MyClothesList()],
           ),
         ),
       )),
