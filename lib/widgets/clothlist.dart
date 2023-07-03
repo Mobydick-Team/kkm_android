@@ -14,21 +14,10 @@ class Clothes extends StatefulWidget {
 class _ClothListState extends State<Clothes> {
   final List<ClothesList> clothesList = <ClothesList>[];
   final List<Selection> selection = <Selection>[];
-  final List<String> _values = [
-    "전체",
-    "상의",
-    "스커트",
-    "하의",
-    "원피스",
-    "가방",
-    "패션용품",
-    "신발",
-    "액세서리",
-    "기타"
-  ];
 
   @override
   void initState() {
+    super.initState();
     for (int i = 0; i < 9; i++) {
       clothesList.add(ClothesList(
           "메린",
@@ -38,7 +27,9 @@ class _ClothListState extends State<Clothes> {
           "메린의 미친 옷",
           1000,
           3000,
-          "부산광역시 연제구"));
+          "부산광역시 연제구",
+          false,
+          false));
     }
   }
 
