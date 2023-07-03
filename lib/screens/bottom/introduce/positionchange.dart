@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/screens/kakaomapview.dart';
+import 'package:kkm/screens/bottom/introduce/kakaomapview.dart';
 
 class PositionChange extends StatefulWidget {
   const PositionChange({super.key});
