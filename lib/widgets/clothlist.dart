@@ -28,8 +28,8 @@ class _ClothListState extends State<Clothes> {
           1000,
           3000,
           "부산광역시 연제구",
-          false,
-          false));
+          i % 3 == 0 ? true : false,
+          i % 2 == 0 ? false : true));
     }
   }
 
@@ -63,7 +63,6 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                   Container(
                     width: 150.w,
                     height: 190.h,
-                    padding: EdgeInsets.only(top: 8.h, left: 8.w, right: 8.w),
                     decoration: BoxDecoration(
                         image: const DecorationImage(
                             fit: BoxFit.fill,
@@ -72,24 +71,76 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                             )),
                         border: Border.all(width: 0.0),
                         borderRadius: BorderRadius.all(Radius.circular(5.r))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        Icon(
-                          Icons.account_circle,
-                          size: 16.h,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        Text(
-                          clothes[i].userName,
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                        clothes[i].transaction
+                            ? const Text("")
+                            : Container(
+                                width: 150.w,
+                                height: 190.h,
+                                color: Colors.black.withOpacity(0.4),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "거래중",
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ],
+                                ),
+                              ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 8.h, right: 8.w, left: 8.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.account_circle,
+                                      size: 16.h,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Text(
+                                      clothes[i].userName,
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              clothes[i].isheart
+                                  ? Padding(
+                                      padding: EdgeInsets.only(top: 2.h),
+                                      child: Icon(
+                                        Icons.favorite,
+                                        color: const Color(0xffEA5858),
+                                        size: 13.w,
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: EdgeInsets.only(top: 2.h),
+                                      child: Icon(
+                                        Icons.favorite_border,
+                                        color: const Color(0xffEA5858),
+                                        size: 13.w,
+                                      ),
+                                    ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -205,8 +256,6 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                             Container(
                               width: 150.w,
                               height: 190.h,
-                              padding: EdgeInsets.only(
-                                  top: 8.h, left: 8.w, right: 8.w),
                               decoration: BoxDecoration(
                                   image: const DecorationImage(
                                       fit: BoxFit.fill,
@@ -216,24 +265,86 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                   border: Border.all(width: 0.0),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.r))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Stack(
                                 children: [
-                                  Icon(
-                                    Icons.account_circle,
-                                    size: 16.h,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 2.w,
-                                  ),
-                                  Text(
-                                    clothes[i + 1].userName,
-                                    style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
+                                  clothes[i + 1].transaction
+                                      ? const Text("")
+                                      : Container(
+                                          width: 150.w,
+                                          height: 190.h,
+                                          color: Colors.black.withOpacity(0.4),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "거래중",
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 8.h, right: 8.w, left: 8.w),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.account_circle,
+                                                size: 16.h,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 2.w,
+                                              ),
+                                              Text(
+                                                clothes[i + 1].userName,
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        clothes[i + 1].isheart
+                                            ? Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 2.h),
+                                                child: Icon(
+                                                  Icons.favorite,
+                                                  color:
+                                                      const Color(0xffEA5858),
+                                                  size: 13.w,
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 2.h),
+                                                child: Icon(
+                                                  Icons.favorite_border,
+                                                  color:
+                                                      const Color(0xffEA5858),
+                                                  size: 13.w,
+                                                ),
+                                              ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -346,8 +457,6 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                         Container(
                           width: 150.w,
                           height: 190.h,
-                          padding:
-                              EdgeInsets.only(top: 8.h, left: 8.w, right: 8.w),
                           decoration: BoxDecoration(
                               image: const DecorationImage(
                                   fit: BoxFit.fill,
@@ -357,24 +466,80 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                               border: Border.all(width: 0.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5.r))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Stack(
                             children: [
-                              Icon(
-                                Icons.account_circle,
-                                size: 16.h,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              Text(
-                                clothes[i + 1].userName,
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
+                              clothes[i + 1].transaction
+                                  ? const Text("")
+                                  : Container(
+                                      width: 150.w,
+                                      height: 190.h,
+                                      color: Colors.black.withOpacity(0.4),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "거래중",
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 8.h, right: 8.w, left: 8.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.account_circle,
+                                            size: 16.h,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(
+                                            width: 2.w,
+                                          ),
+                                          Text(
+                                            clothes[i + 1].userName,
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    clothes[i + 1].isheart
+                                        ? Padding(
+                                            padding: EdgeInsets.only(top: 2.h),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: const Color(0xffEA5858),
+                                              size: 13.w,
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: EdgeInsets.only(top: 2.h),
+                                            child: Icon(
+                                              Icons.favorite_border,
+                                              color: const Color(0xffEA5858),
+                                              size: 13.w,
+                                            ),
+                                          ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
