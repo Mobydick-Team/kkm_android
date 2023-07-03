@@ -9,6 +9,29 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
+  List<String> clothesName = [
+    '상의',
+    '스커트',
+    '하의',
+    '원피스',
+    '액세서리',
+    '신발',
+    '패션소품',
+    '가방',
+    '기타'
+  ];
+  List<String> imagesPath = [
+    'images/category/1.png',
+    'images/category/2.png',
+    'images/category/3.png',
+    'images/category/4.png',
+    'images/category/5.png',
+    'images/category/6.png',
+    'images/category/7.png',
+    'images/category/8.png',
+    'images/category/9.png'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +60,37 @@ class _SelectCategoryState extends State<SelectCategory> {
       ),
       body: Center(
         child: Column(
-          children: [],
+          children: [
+            for (int i = 0; i < 8; i++)
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  FocusScope.of(context).unfocus();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 56.h,
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(imagesPath[i]),
+                      SizedBox(
+                        width: 18.w,
+                      ),
+                      Text(
+                        clothesName[i],
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          color: const Color(0xff262626),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+          ],
         ),
       ),
     );
