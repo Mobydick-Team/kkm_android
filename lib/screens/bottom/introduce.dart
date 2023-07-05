@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/screens/bottom/introduce/history.dart';
 import 'package:kkm/screens/bottom/introduce/myclothes.dart';
 import 'package:kkm/screens/bottom/introduce/review.dart';
 import 'package:kkm/screens/bottom/introduce/updateprofile.dart';
@@ -103,26 +104,34 @@ class _IntroduceState extends State<Introduce> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "거래 내역",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: const Color(0xffBDBDBD)),
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Text(
-                            "369",
-                            style: TextStyle(
-                                fontSize: 18.sp,
-                                color: const Color(0xff304FFE)),
-                          )
-                        ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const History()));
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "거래 내역",
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: const Color(0xffBDBDBD)),
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              "369",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: const Color(0xff304FFE)),
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         width: 1.w,
