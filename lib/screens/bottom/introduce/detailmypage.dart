@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/provider/emphasis.dart';
@@ -16,6 +17,8 @@ class DetailMyClothes extends StatefulWidget {
 class _DetailClothesState extends State<DetailMyClothes> {
   bool isfavorite = false;
   int i = 0;
+
+  String? selectedValue;
   final controller = PageController(keepPage: true);
   final pages = List.generate(
     3,
@@ -104,7 +107,61 @@ class _DetailClothesState extends State<DetailMyClothes> {
                                 fontSize: 22.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
-                          )
+                          ),
+                          SizedBox(
+                            width: 190.w,
+                          ),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              customButton: Icon(
+                                Icons.more_horiz,
+                                size: 18.w,
+                                color: Colors.white,
+                              ),
+                              items: [
+                                ...MenuItems.firstItems.map(
+                                  (item) => DropdownMenuItem<MenuItem>(
+                                    value: item,
+                                    child: MenuItems.buildItem(item),
+                                  ),
+                                ),
+                                const DropdownMenuItem<Divider>(
+                                    enabled: false, child: Divider()),
+                                ...MenuItems.secondItems.map(
+                                  (item) => DropdownMenuItem<MenuItem>(
+                                    value: item,
+                                    child: MenuItems.buildItem(item),
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                MenuItems.onChanged(
+                                  context,
+                                  value! as MenuItem,
+                                );
+                              },
+                              dropdownStyleData: DropdownStyleData(
+                                width: 90.w,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.r),
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
+                                offset: const Offset(0, -10),
+                              ),
+                              menuItemStyleData: MenuItemStyleData(
+                                customHeights: [
+                                  ...List<double>.filled(
+                                      MenuItems.firstItems.length, 30.w),
+                                  0.w,
+                                  ...List<double>.filled(
+                                      MenuItems.secondItems.length, 30.w),
+                                ],
+                                padding: EdgeInsets.only(left: 20.w),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -463,5 +520,126 @@ class _DetailClothesState extends State<DetailMyClothes> {
         ],
       ),
     );
+  }
+}
+
+class MenuItem {
+  const MenuItem({
+    required this.text,
+    required this.color,
+  });
+
+  final String text;
+  final int color;
+}
+
+abstract class MenuItems {
+  static const List<MenuItem> firstItems = [first, second];
+  static const List<MenuItem> secondItems = [third];
+  static const first = MenuItem(text: '수정하기', color: 0xff000000);
+  static const second = MenuItem(text: '공유하기', color: 0xff000000);
+  static const third = MenuItem(text: '삭제하기', color: 0xffD34646);
+
+  static Widget buildItem(MenuItem item) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            item.text,
+            style: TextStyle(
+                color: Color(item.color),
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
+      ],
+    );
+  }
+
+  static void onChanged(BuildContext context, MenuItem item) {
+    void FlutterDialog() {
+      showDialog(
+          context: context,
+          //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: const Color(0xffF5F5F5).withOpacity(0.9),
+              // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              //Dialog Main Title
+              title: Column(
+                children: [
+                  Text("정말 게시물을 삭제하시겠어요?",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          color: const Color(0xff404040),
+                          fontWeight: FontWeight.w500)),
+                  SizedBox(height: 6.h),
+                  Text(
+                    "한 번 삭제한 게시물은 복구할 수 없습니다.",
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff8E8E8F)),
+                  ),
+                ],
+              ),
+              titlePadding: EdgeInsets.only(top: 13.h),
+              actions: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff536DFE),
+                          elevation: 0.0,
+                          minimumSize: Size(105.w, 36.h),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r))),
+                      child: Text(
+                        "취소",
+                        style: TextStyle(fontSize: 14.sp, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          minimumSize: Size(105.w, 36.h),
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r))),
+                      child: Text(
+                        "삭제",
+                        style: TextStyle(
+                            fontSize: 14.sp, color: const Color(0xffFF5160)),
+                      ),
+                      onPressed: () async {},
+                    ),
+                  ],
+                )
+              ],
+            );
+          });
+    }
+
+    switch (item) {
+      case MenuItems.first:
+        break;
+      case MenuItems.second:
+        //Do something
+        break;
+      case MenuItems.third:
+        FlutterDialog();
+        //Do something
+        break;
+    }
   }
 }
