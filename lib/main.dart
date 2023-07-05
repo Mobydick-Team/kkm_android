@@ -3,15 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
 
-import 'package:kkm/secret/secret.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  KakaoSdk.init(nativeAppKey: Secret.nativeAppKey);
-
   runApp(const MyApp());
 }
 
