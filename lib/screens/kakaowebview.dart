@@ -19,8 +19,6 @@ class _WebviewState extends State<Webviewkakao> {
   bool close = false;
   bool postend = false;
   String code = "";
-  String url = "https://bgit.bssm.kro.kr/oauth/bsm";
-  String accessToken = "";
   var userData;
 
   WebViewController? _webViewController;
@@ -40,10 +38,11 @@ class _WebviewState extends State<Webviewkakao> {
           print(request.url);
           setState(() {
             code = request.url.split("?code=")[1];
+            print("code : $code");
           });
           getrequest(userData, code);
           return NavigationDecision.prevent;
-        } else if (request.url.contains(url)) {}
+        } else if (request.url.contains("")) {}
 
         if (request.url.startsWith('https://www.youtube.com/')) {
           return NavigationDecision.prevent;
@@ -90,10 +89,33 @@ class _WebviewState extends State<Webviewkakao> {
         fontSize: 16.sp);
   }
 
+  Future<void> postrequest(UserData userdata, BuildContext context) async {
+    try {
+      String url = 'http://43.200.19.51:3034/auth/login';
+      Map<String, dynamic> body = {
+        'userId': userdata.userId,
+      };
+      var parsingData = await sendPostRequest(url, body, context);
+      print(parsingData);
+      if (parsingData != null) {
+        // ignore: avoid_print
+        print('연동에 성공했어요!');
+        userdata.inputAccessToken(parsingData['accessToken']);
+        userdata.inputRefreshToken(parsingData['refreshToken']);
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Bottombar()));
+        successmessage();
+      } else {
+        print("오류 발생");
+      }
+    } catch (e) {}
+  }
+
   void getrequest(var userdata, String code) async {
     try {
       String url = 'http://43.200.19.51:3034/auth/kakao/info?code=$code';
-      var parsingData = await sendGetRequest(url, context);
+      var parsingData = await sendGetRequest(url, null, context);
       print(parsingData);
       if (parsingData != null) {
         if (parsingData['signedUp'] != true) {
@@ -104,9 +126,7 @@ class _WebviewState extends State<Webviewkakao> {
         } else {
           userdata.inputId(parsingData['kakaoUserInfoResponse']['id']);
           // ignore: use_build_context_synchronously
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const Bottombar()));
-          successmessage();
+          await postrequest(userdata, context);
         }
       } else {}
     } catch (e) {
