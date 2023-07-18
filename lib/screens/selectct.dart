@@ -64,7 +64,7 @@ class _SelectCategoryState extends State<SelectCategory> {
             for (int i = 0; i < 8; i++)
               InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, clothesName[i]);
                   FocusScope.of(context).unfocus();
                 },
                 child: Container(
