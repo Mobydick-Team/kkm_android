@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/provider/emphasis.dart';
 import 'package:kkm/provider/user.dart';
-import 'package:kkm/screens/bottom/bottom.dart';
+import 'package:kkm/screens/kakaowebview.dart';
 
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         //screenutil 라이브러리 (뒤에 .h, .w00, .r, .sp등등 크기를 반응형으로 만들어줌)
         designSize: const Size(360, 800), // 어떤 사이즈를 기준으로 만들것인가
         builder: (BuildContext context, Widget? child) => const MaterialApp(
-            title: '꼬꼬막', debugShowCheckedModeBanner: false, home: Login()),
+            title: 'kkm', debugShowCheckedModeBanner: false, home: Login()),
       ),
     );
   }
@@ -86,11 +86,8 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: const Color(0xffFEE500)),
                 onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (_) => const Webviewkakao()));
-
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Bottombar()));
+                      MaterialPageRoute(builder: (_) => const Webviewkakao()));
                 },
                 child: Row(
                   children: [
