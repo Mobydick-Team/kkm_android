@@ -64,7 +64,7 @@ class _NameState extends State<Name> {
     try {
       String url =
           'http://43.200.19.51:3034/user/check/${_nameController.text}';
-      var parsingData = await sendGetRequest(url, context);
+      var parsingData = await sendGetRequest(url, null, context);
       print(parsingData);
       if (parsingData != null) {
         if (parsingData['exist'] == true) {
