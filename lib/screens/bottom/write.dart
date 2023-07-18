@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +30,70 @@ class _WriteState extends State<Write> {
   bool writing2 = false;
   bool writing3 = false;
   bool writing4 = false;
+
+  String category = "액세서리";
+  // Future<void> postrequest(var userdata, BuildContext context) async {
+  //   try {
+  //     String url = 'http://43.200.19.51:3034/user/signup/request';
+  //     Map<String, dynamic> body = {
+  //       'images': [
+
+  //       ],
+  //     };
+  //     var parsingData = await sendPostRequest(url, body, context);
+  //     print(parsingData);
+  //     if (parsingData != null) {
+  //       if (parsingData is String) {
+  //         // ignore: avoid_print
+  //         print('연동에 성공했어요!');
+  //         // ignore: use_build_context_synchronously
+  //       } else {}
+  //     } else {
+  //       print("오류 발생");
+  //     }
+  //   } catch (e) {
+  //     // ignore: avoid_print
+  //     print("예외가 발생했어요");
+  //     // ignore: avoid_print
+  //     print(e.toString());
+  //   }
+  // }
+
+  Future<void> uploadImage(File file, UserData userdata) async {
+    print("시작");
+    late Response response;
+    var dio = Dio();
+    dio.options.headers['content-Type'] = 'multipart/form-data';
+
+    FormData formData = FormData.fromMap({
+      "images": [
+        await MultipartFile.fromFile(file.path, filename: "file.jpg"),
+      ]
+    });
+    dio.options.contentType = 'multipart/form-data';
+
+    response = await dio.post(
+      "http://43.200.19.51:3034/post/image",
+      data: formData,
+      options: Options(
+          headers: {"authorization": "Bearer ${userdata.accessToken}"},
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! <= 500;
+          }),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("성공했습니다");
+      print(response.data);
+      userdata.addPicture(userImage, response.data['urls'][0]);
+      for (int i = 0; i < userdata.imageUrls.length; i++) {
+        print(userdata.imageUrls[i]);
+      }
+    }
+    print(response.toString());
+  }
 
   void toastmessage() {
     Fluttertoast.showToast(
@@ -90,8 +155,8 @@ class _WriteState extends State<Write> {
                                   setState(() {
                                     userImage = File(image.path);
                                     pictureCount++;
-                                    userData.addPicture(userImage);
                                   });
+                                  await uploadImage(userImage, userData);
                                 }
                               } else {
                                 toastmessage();
@@ -360,11 +425,14 @@ class _WriteState extends State<Write> {
                     color: const Color(0xffEEEEEE),
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (_) => const SelectCategory()));
+                      setState(() {
+                        category = result;
+                      });
                     },
                     child: Padding(
                       padding: EdgeInsets.only(
@@ -380,7 +448,7 @@ class _WriteState extends State<Write> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "액세서리",
+                              category,
                               style: TextStyle(
                                   fontSize: 14.sp,
                                   color: const Color(0xff424242),
