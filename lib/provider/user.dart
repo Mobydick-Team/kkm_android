@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class UserData extends ChangeNotifier {
   String _accessToken = '';
+  String _refreshToken = '';
   String _userImage = '';
   int _userId = 0;
   String _userName = '';
@@ -11,8 +12,10 @@ class UserData extends ChangeNotifier {
   double _lat = 0;
   double _lon = 0;
   List<File> _pictureList = <File>[];
+  List<String> _imageUrls = <String>[];
 
   String get accessToken => _accessToken;
+  String get refreshToken => _refreshToken;
   String get userName => _userName;
   int get userId => _userId;
   String get userImage => _userImage;
@@ -20,14 +23,17 @@ class UserData extends ChangeNotifier {
   double get lat => _lat;
   double get lon => _lon;
   List<File> get pictureList => _pictureList;
+  List<String> get imageUrls => _imageUrls;
 
-  void addPicture(File file) {
+  void addPicture(File file, String url) {
     _pictureList.add(file);
+    _imageUrls.add(url);
     notifyListeners();
   }
 
   void removePicture(int index) {
     _pictureList.removeAt(index);
+    _imageUrls.removeAt(index);
     notifyListeners();
   }
 
@@ -44,6 +50,11 @@ class UserData extends ChangeNotifier {
 
   void inputAccessToken(String accessToken) {
     _accessToken = accessToken;
+    notifyListeners();
+  }
+
+  void inputRefreshToken(String refreshToken) {
+    _refreshToken = refreshToken;
     notifyListeners();
   }
 
