@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kkm/common/common.dart';
+import 'package:kkm/data/http_client.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kpostal/kpostal.dart';
@@ -32,6 +34,17 @@ class _PictureState extends State<Picture> {
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
 
+  void successmessage() {
+    Fluttertoast.showToast(
+        msg: "환영합니다!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.sp);
+  }
+
   void _onLoading() {
     showDialog(
       context: context,
@@ -54,52 +67,87 @@ class _PictureState extends State<Picture> {
     );
   }
 
+  Future<void> postrequest(var userdata, BuildContext context) async {
+    try {
+      String url = 'http://43.200.19.51:3034/user/signup';
+      Map<String, dynamic> body = {
+        'nickname': userdata.userName,
+        'userId': userdata.userId,
+        'latitude': userdata.lat,
+        'longitude': userdata.lon,
+        'address': userdata.useraddress
+      };
+      var parsingData = await sendPostRequest(url, body, context);
+      print(parsingData);
+      if (parsingData != null) {
+        if (parsingData is String) {
+          // ignore: avoid_print
+          print('연동에 성공했어요!');
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => const Bottombar()));
+          successmessage();
+        } else {}
+      } else {
+        print("오류 발생");
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print("예외가 발생했어요");
+      // ignore: avoid_print
+      print(e.toString());
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => const Bottombar()));
+      successmessage();
+    }
+  }
+
   Future<void> uploadImage(File file, UserData user) async {
     print("실행됨");
 
     var dio = Dio();
-    print(user.userName);
-    print(user.userId);
-    print(user.lat);
-    print(user.lon);
 
-    FormData formData = FormData.fromMap({
-      "data": {
-        "nickname": user.userName,
-        "userId": user.userId,
-        "latitude": user.lat,
-        "longitude": user.lon,
-        "address": "연제구 연수로 192"
-      },
-      "profileImg": [
-        await MultipartFile.fromFile(file.path,
-            filename: "file",
-            contentType: MediaType.parse('multipart/form-data')),
-      ],
-    });
+    FormData formData = FormData();
+    formData.fields.addAll([
+      MapEntry(
+          "data",
+          jsonEncode({
+            "nickname": user.userName,
+            "userId": user.userId,
+            "latitude": user.lat,
+            "longitude": user.lon,
+            "address": user.useraddress,
+          })),
+    ]);
+    formData.files.addAll([
+      MapEntry(
+        "profileImg",
+        await MultipartFile.fromFile(
+          file.path,
+          filename: "file.jpg",
+        ),
+      ),
+    ]);
+
+    dio.options.headers['Content-Type'] = 'multipart/form-data';
+
     Response response = await dio.post(
       "http://43.200.19.51:3034/user/signup",
       data: formData,
       options: Options(
         followRedirects: false,
         validateStatus: (status) {
-          return status! < 500;
-        },
-        headers: <String, String>{
-          'Content-Type': 'multipart/form-data',
+          return status! <= 500;
         },
       ),
     );
 
-    print(response.statusCode);
     print(response.data);
-    if (response.statusCode == 200) {
-      print("statuscode가 200임");
-      FlutterDialog1(user);
-    } else {
-      print("statuscode를 가 이상함");
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("성공했습니다");
+      print(response.data);
     }
-    print(response.toString());
   }
 
   void FlutterDialog1(var userdata) {
@@ -387,16 +435,18 @@ class _PictureState extends State<Picture> {
                       builder: (_) => KpostalView(
                         useLocalServer: true,
                         localPort: 1024,
-                        // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
                         callback: (Kpostal result) {
-                          setState(() {});
+                          setState(() {
+                            userData.inputUserAddress(result.address);
+                          });
                         },
                       ),
                     ),
                   );
                   print("하이");
-                  FlutterDialog1(userData);
-                  FlutterDialog1(userData);
+
+                  await uploadImage(userImage, userData);
+
                   // ignore: use_build_context_synchronously
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (_) => const Bottombar()));
