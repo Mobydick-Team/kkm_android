@@ -28,12 +28,20 @@ class UserData extends ChangeNotifier {
   void addPicture(File file, String url) {
     _pictureList.add(file);
     _imageUrls.add(url);
+    for (int i = 0; i < _pictureList.length; i++) {
+      print("$i번째 이미지 리스트 : ${_pictureList[i]}");
+      print("$i번째 url 리스트 : ${_imageUrls[i]}");
+    }
     notifyListeners();
   }
 
   void removePicture(int index) {
     _pictureList.removeAt(index);
     _imageUrls.removeAt(index);
+    for (int i = 0; i < _pictureList.length; i++) {
+      print("$i번째 이미지 리스트 : ${_pictureList[i]}");
+      print("$i번째 url 리스트 : ${_imageUrls[i]}");
+    }
     notifyListeners();
   }
 
