@@ -44,42 +44,59 @@ Future<dynamic> sendPostRequest(
     );
   }
 
-  final parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
-  if (response.statusCode == 200) {
+  final parsingdata;
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    if (response.bodyBytes.isEmpty) {
+      // 응답이 비어있을 경우 예외 처리
+      print('API 응답이 비어있습니다.');
+      return 1;
+    }
+    parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     return parsingdata;
   } else if (response.statusCode == 403) {
+    http.Response response1;
     print("403이 시작됨");
     if (body == null) {
-      response = await http.post(
+      response1 = await http.post(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'HAIRSHEET-TOKEN': userData.accessToken,
+          'Authorization': userData.accessToken,
         },
       );
     } else {
-      response = await http.post(
+      print("실행됨");
+      print(userData.accessToken);
+      response1 = await http.post(
         Uri.parse(url),
         body: jsonEncode(body),
         headers: {
           'Content-Type': 'application/json',
-          'HAIRSHEET-TOKEN': userData.accessToken,
+          'Authorization': "Bearer ${userData.accessToken}",
         },
       );
     }
+    if (response1.bodyBytes.isEmpty) {
+      // 응답이 비어있을 경우 예외 처리
+      print(response1.statusCode);
+      print('API 응답이 비어있습니다.');
+      return 1;
+    }
+    final parsingdata;
+    parsingdata = jsonDecode(utf8.decode(response1.bodyBytes));
 
-    final parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     print(parsingdata);
-    if (response.statusCode == 200) {
+    if (response1.statusCode == 200 || response1.statusCode == 201) {
       return parsingdata;
-    } else if (response.statusCode == 403) {
+    } else if (response1.statusCode == 403) {
       print(parsingdata);
 
       return null;
-    } else if (response.statusCode == 404) {
+    } else if (response1.statusCode == 404) {
       print(parsingdata);
       return null;
-    } else if (response.statusCode == 409) {
+    } else if (response1.statusCode == 409) {
       print(parsingdata);
       return null;
     } else {
@@ -87,17 +104,18 @@ Future<dynamic> sendPostRequest(
       toastmessage500();
       return null;
     }
-  } else if (response.statusCode == 403) {
-    print(parsingdata);
-    return null;
   } else if (response.statusCode == 404) {
+    parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     print(parsingdata);
     return null;
   } else if (response.statusCode == 409) {
+    parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     print(parsingdata);
     return null;
   } else {
+    parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     print(parsingdata);
+
     toastmessage500();
     return null;
   }
@@ -115,7 +133,7 @@ Future<dynamic> sendGetRequest(
   final parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
 
   print(response.statusCode);
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 || response.statusCode == 201) {
     // 응답이 성공인 경우
     print(parsingdata);
     return parsingdata;
