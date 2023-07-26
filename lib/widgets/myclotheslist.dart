@@ -23,7 +23,9 @@ class _ClothListState extends State<MyClothesList> {
       clothesList.add(ClothesList(
           "메린",
           false,
-          "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg",
+          [
+            "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg"
+          ],
           "2000",
           "메린의 미친 옷",
           1000,
