@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kkm/data/http_client.dart';
 import 'package:kkm/provider/user.dart';
 import 'package:kkm/screens/selectct.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Write extends StatefulWidget {
   const Write({super.key});
@@ -32,32 +34,50 @@ class _WriteState extends State<Write> {
   bool writing4 = false;
 
   String category = "액세서리";
-  // Future<void> postrequest(var userdata, BuildContext context) async {
-  //   try {
-  //     String url = 'http://43.200.19.51:3034/user/signup/request';
-  //     Map<String, dynamic> body = {
-  //       'images': [
 
-  //       ],
-  //     };
-  //     var parsingData = await sendPostRequest(url, body, context);
-  //     print(parsingData);
-  //     if (parsingData != null) {
-  //       if (parsingData is String) {
-  //         // ignore: avoid_print
-  //         print('연동에 성공했어요!');
-  //         // ignore: use_build_context_synchronously
-  //       } else {}
-  //     } else {
-  //       print("오류 발생");
-  //     }
-  //   } catch (e) {
-  //     // ignore: avoid_print
-  //     print("예외가 발생했어요");
-  //     // ignore: avoid_print
-  //     print(e.toString());
-  //   }
-  // }
+  Future<void> postrequest(UserData userdata, BuildContext context) async {
+    String url = 'http://43.200.19.51:3034/post';
+    var dio = Dio();
+
+    Map<String, dynamic> body = {
+      "title": _writeController1.text,
+      "content": _writeController4.text,
+      "price": _writeController3.text,
+      "deposit": _writeController2.text,
+      "category": "SHIRT",
+      "urls": userdata.imageUrls.length == 1
+          ? [userdata.imageUrls[0]]
+          : userdata.imageUrls.length == 2
+              ? [userdata.imageUrls[0], userdata.imageUrls[1]]
+              : [
+                  userdata.imageUrls[0],
+                  userdata.imageUrls[1],
+                  userdata.imageUrls[2]
+                ]
+    };
+
+    // dio.options.headers['content-Type'] = 'application/json';
+    // dio.options.headers["Authorization"] = "Bearer ${userdata.accessToken}";
+    // final response = await dio.post(
+    //   url,
+    //   data: body,
+    // );
+    // print(response.statusCode);
+    // print(response.data);
+
+    var parsingData = await sendPostRequest(url, body, context);
+
+    print(parsingData);
+    if (parsingData != null) {
+      if (parsingData is String) {
+        // ignore: avoid_print
+        print('연동에 성공했어요!');
+        // ignore: use_build_context_synchronously
+      } else {}
+    } else {
+      print("오류 발생");
+    }
+  }
 
   Future<void> uploadImage(File file, UserData userdata) async {
     print("시작");
@@ -165,6 +185,7 @@ class _WriteState extends State<Write> {
                             child: Container(
                               height: 99.h,
                               width: 97.w,
+                              margin: EdgeInsets.only(right: 10.w),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: const Color(0xffF5F5F5)),
@@ -516,8 +537,8 @@ class _WriteState extends State<Write> {
                             writing2 == true &&
                             writing3 == true &&
                             writing4 == true
-                        ? () {
-                            //postrequest
+                        ? () async {
+                            await postrequest(userData, context);
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
@@ -546,7 +567,7 @@ class _WriteState extends State<Write> {
     List<Widget> results = [];
     for (var i = 0; i < userData.pictureList.length; i++) {
       results.add(Padding(
-        padding: EdgeInsets.only(left: 10.w),
+        padding: EdgeInsets.only(left: 5.w),
         child: SizedBox(
           height: 130.h,
           child: Stack(
