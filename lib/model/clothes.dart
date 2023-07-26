@@ -1,7 +1,7 @@
 class ClothesList {
   String userName;
   bool isheartpressed;
-  String image;
+  List<String> image;
   String price;
   String clothName;
   int deposit;
