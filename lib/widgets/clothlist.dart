@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/clothes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/model/selection.dart';
 import 'package:kkm/screens/detailclothes.dart';
 
 class Clothes extends StatefulWidget {
@@ -13,8 +12,6 @@ class Clothes extends StatefulWidget {
 
 class _ClothListState extends State<Clothes> {
   final List<ClothesList> clothesList = <ClothesList>[];
-  final List<Selection> selection = <Selection>[];
-
   @override
   void initState() {
     super.initState();
@@ -22,7 +19,9 @@ class _ClothListState extends State<Clothes> {
       clothesList.add(ClothesList(
           "메린",
           false,
-          "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg",
+          [
+            "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg"
+          ],
           "2000",
           "메린의 미친 옷",
           1000,
