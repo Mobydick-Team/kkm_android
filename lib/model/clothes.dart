@@ -1,8 +1,9 @@
 class ClothesList {
+  int postId;
+  String category;
   String userName;
-  bool isheartpressed;
+  String profileImage;
   List<String> image;
-  String price;
   String clothName;
   int deposit;
   int rentalfee;
@@ -10,10 +11,11 @@ class ClothesList {
   bool transaction;
   bool isheart;
   ClothesList(
+      this.postId,
+      this.category,
       this.userName,
-      this.isheartpressed,
+      this.profileImage,
       this.image,
-      this.price,
       this.clothName,
       this.deposit,
       this.rentalfee,
