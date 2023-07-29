@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kkm/model/writingreview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kkm/screens/write.dart';
+import 'package:kkm/screens/bottom/introduce/write.dart';
 
 class WritingReviews extends StatefulWidget {
   const WritingReviews({super.key});
