@@ -49,8 +49,9 @@ Future<dynamic> sendPostRequest(
   if (response.statusCode == 200 || response.statusCode == 201) {
     if (response.bodyBytes.isEmpty) {
       // 응답이 비어있을 경우 예외 처리
+      print(response.statusCode);
       print('API 응답이 비어있습니다.');
-      return 1;
+      return "비어있음";
     }
     parsingdata = jsonDecode(utf8.decode(response.bodyBytes));
     return parsingdata;
@@ -81,7 +82,7 @@ Future<dynamic> sendPostRequest(
       // 응답이 비어있을 경우 예외 처리
       print(response1.statusCode);
       print('API 응답이 비어있습니다.');
-      return 1;
+      return "비어있음";
     }
     final parsingdata;
     parsingdata = jsonDecode(utf8.decode(response1.bodyBytes));
