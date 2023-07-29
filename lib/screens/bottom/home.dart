@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kkm/data/http_client.dart';
 import 'package:kkm/model/clothes.dart';
 import 'package:kkm/model/selection.dart';
@@ -22,6 +26,7 @@ class _HomePageState extends State<Home> {
   final TextEditingController _searchController = TextEditingController();
   double _value = 40.0;
   int _index = 0;
+  bool hasMorePage = true;
 
   // ignore: prefer_final_fields
   RefreshController _refreshController =
@@ -57,16 +62,19 @@ class _HomePageState extends State<Home> {
         //update state
       });
     });
-    setState(() {
-      isLoading = true;
-    });
+
     _initializeData(); // Move getrequest logic to a separate method
   }
 
   Future<void> _initializeData() async {
     userData = Provider.of<UserData>(context, listen: false);
     await getrequest(userData, context);
+    setState(() {
+      isLoading = true;
+    });
   }
+
+  final List<ClothesList> userClothesList = <ClothesList>[];
 
   Future<void> getrequest(UserData userData, BuildContext context) async {
     String url =
@@ -79,15 +87,28 @@ class _HomePageState extends State<Home> {
     var parsingData = await sendGetRequest(url, header, context);
 
     if (parsingData != null) {
-      if (parsingData is String) {
-        // clothesList.add(ClothesList(userName, isheartpressed, image, price, clothName, deposit, rentalfee, location, transaction, isheart));
-        // ignore: avoid_print
-        print('연동에 성공했어요!');
-        setState(() {
-          isLoading = false;
-        });
-        // ignore: use_build_context_synchronously
-      } else {}
+      // clothesList.add(ClothesList(userName, isheartpressed, image, price, clothName, deposit, rentalfee, location, transaction, isheart));
+      // ignore: avoid_print
+      for (int i = 0; i < parsingData['list'].length; i++) {
+        clothesList.add(ClothesList(
+          parsingData['list'][i]['postId'],
+          "${parsingData['list'][i]['category']}",
+          "${parsingData['list'][i]['name']}",
+          parsingData['list'][i]['profileImage'],
+          ["${parsingData['list'][i]['thumbnail']}"],
+          "${parsingData['list'][i]['title']}",
+          parsingData['list'][i]['price'],
+          parsingData['list'][i]['deposit'],
+          parsingData['list'][i]['location'],
+          parsingData['list'][i]['status'] == "ACTIVE" ? false : true,
+          parsingData['list'][i]['like'],
+        ));
+      }
+      hasMorePage = parsingData['hasMorePage'];
+      print('연동에 성공했어요!');
+      setState(() {
+        isLoading = false;
+      });
     } else {
       print("오류 발생");
     }
@@ -360,7 +381,9 @@ class _HomePageState extends State<Home> {
                     ),
                     const SelectionWidget(),
                     isLoading
-                        ? const Clothes()
+                        ? Clothes(
+                            clothes: clothesList,
+                          )
                         : Padding(
                             padding: EdgeInsets.only(top: 25.h),
                             child: SizedBox(
