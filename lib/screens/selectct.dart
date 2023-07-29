@@ -9,6 +9,18 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
+  List<String> returnString = [
+    'SHIRT',
+    'SKIRT',
+    'PANTS',
+    'ONEPIECE',
+    'ACCESSORY',
+    'SHOES',
+    'FASHION',
+    'BAG',
+    'ETC'
+  ];
+
   List<String> clothesName = [
     '상의',
     '스커트',
@@ -61,10 +73,10 @@ class _SelectCategoryState extends State<SelectCategory> {
       body: Center(
         child: Column(
           children: [
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 9; i++)
               InkWell(
                 onTap: () {
-                  Navigator.pop(context, clothesName[i]);
+                  Navigator.pop(context, i);
                   FocusScope.of(context).unfocus();
                 },
                 child: Container(
