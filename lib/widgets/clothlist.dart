@@ -4,38 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kkm/screens/detailclothes.dart';
 
 class Clothes extends StatefulWidget {
-  const Clothes({super.key});
+  final List<ClothesList> clothes;
+  const Clothes({super.key, required this.clothes});
 
   @override
   State<Clothes> createState() => _ClothListState();
 }
 
 class _ClothListState extends State<Clothes> {
-  final List<ClothesList> clothesList = <ClothesList>[];
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 9; i++) {
-      clothesList.add(ClothesList(
-          "메린",
-          false,
-          [
-            "https://movie-phinf.pstatic.net/20181213_264/1544692854634ss65r_JPEG/movie_image.jpg"
-          ],
-          "2000",
-          "메린의 미친 옷",
-          1000,
-          3000,
-          "부산광역시 연제구",
-          i % 3 == 0 ? true : false,
-          i % 2 == 0 ? false : true));
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: makeClothes(context, clothesList),
+      children: makeClothes(context, widget.clothes),
     );
   }
 }
