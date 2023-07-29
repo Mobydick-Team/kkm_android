@@ -33,6 +33,7 @@ class _PictureState extends State<Picture> {
   double longitude = 0.0;
   String kakaoLatitude = '-';
   String kakaoLongitude = '-';
+  String imageUrl = '';
 
   void successmessage() {
     Fluttertoast.showToast(
@@ -67,88 +68,40 @@ class _PictureState extends State<Picture> {
     );
   }
 
-  Future<void> postrequest(var userdata, BuildContext context) async {
-    try {
-      String url = 'http://43.200.19.51:3034/user/signup';
-      Map<String, dynamic> body = {
-        'nickname': userdata.userName,
-        'userId': userdata.userId,
-        'latitude': userdata.lat,
-        'longitude': userdata.lon,
-        'address': userdata.useraddress
-      };
-      var parsingData = await sendPostRequest(url, body, context);
-      print(parsingData);
-      if (parsingData != null) {
-        if (parsingData is String) {
-          // ignore: avoid_print
-          print('연동에 성공했어요!');
-          // ignore: use_build_context_synchronously
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const Bottombar()));
-          successmessage();
-        } else {}
-      } else {
-        print("오류 발생");
-      }
-    } catch (e) {
-      // ignore: avoid_print
-      print("예외가 발생했어요");
-      // ignore: avoid_print
-      print(e.toString());
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const Bottombar()));
-      successmessage();
-    }
-  }
-
-  Future<void> uploadImage(File file, UserData user) async {
-    print("실행됨");
-
-    var dio = Dio();
-
-    FormData formData = FormData();
-    formData.fields.addAll([
-      MapEntry(
-          "data",
-          jsonEncode({
-            "nickname": user.userName,
-            "userId": user.userId,
-            "latitude": user.lat,
-            "longitude": user.lon,
-            "address": user.useraddress,
-          })),
-    ]);
-    formData.files.addAll([
-      MapEntry(
-        "profileImg",
-        await MultipartFile.fromFile(
-          file.path,
-          filename: "file.jpg",
-        ),
-      ),
-    ]);
-
-    dio.options.headers['Content-Type'] = 'multipart/form-data';
-
-    Response response = await dio.post(
-      "http://43.200.19.51:3034/user/signup",
-      data: formData,
-      options: Options(
-        followRedirects: false,
-        validateStatus: (status) {
-          return status! <= 500;
-        },
-      ),
-    );
-
-    print(response.data);
-    print(response.statusCode);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print("성공했습니다");
-      print(response.data);
-    }
-  }
+  // Future<void> postrequest(var userdata, BuildContext context) async {
+  //   try {
+  //     String url = 'http://43.200.19.51:3034/user/signup';
+  //     Map<String, dynamic> body = {
+  //       'nickname': userdata.userName,
+  //       'userId': userdata.userId,
+  //       'latitude': userdata.lat,
+  //       'longitude': userdata.lon,
+  //       'address': userdata.useraddress
+  //     };
+  //     var parsingData = await sendPostRequest(url, body, context);
+  //     print(parsingData);
+  //     if (parsingData != null) {
+  //       if (parsingData is String) {
+  //         // ignore: avoid_print
+  //         print('연동에 성공했어요!');
+  //         // ignore: use_build_context_synchronously
+  //         Navigator.push(
+  //             context, MaterialPageRoute(builder: (_) => const Bottombar()));
+  //         successmessage();
+  //       } else {}
+  //     } else {
+  //       print("오류 발생");
+  //     }
+  //   } catch (e) {
+  //     // ignore: avoid_print
+  //     print("예외가 발생했어요");
+  //     // ignore: avoid_print
+  //     print(e.toString());
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (_) => const Bottombar()));
+  //     successmessage();
+  //   }
+  // }
 
   void FlutterDialog1(var userdata) {
     showDialog(
@@ -245,44 +198,63 @@ class _PictureState extends State<Picture> {
         });
   }
 
-  Future<void> sendRequest(UserData userData, File imageFile) async {
-    try {
-      var url = Uri.parse('http://43.200.19.51:3034/user/signup');
+  Future<void> uploadImage(UserData userdata, File file) async {
+    print("getImageUrl 시작");
+    late Response response;
+    var dio = Dio();
+    dio.options.headers['content-Type'] = 'multipart/form-data';
 
-      var request = http.MultipartRequest('POST', url);
-      request.headers['Content-Type'] =
-          'multipart/form-data; charset=utf-8'; // Set the content type to multipart/form-data
+    FormData formData = FormData.fromMap({
+      "profileImg": [
+        await MultipartFile.fromFile(file.path, filename: "file.jpg"),
+      ]
+    });
+    dio.options.contentType = 'multipart/form-data';
 
-      // JSON 데이터를 추가합니다.
-      request.fields['data'] = jsonEncode({
-        "nickname": userData.userName,
-        "userId": userData.userId,
-        "latitude": userData.lat,
-        "longitude": userData.lon,
-        "address": userData.useraddress
-      });
+    response = await dio.post(
+      "http://43.200.19.51:3034/user/signup/image/${userdata.userId}",
+      data: formData,
+      options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! <= 500;
+          }),
+    );
 
-      // 파일을 추가합니다.
-      var file = await http.MultipartFile.fromPath(
-        'profileImg',
-        imageFile.path,
-      );
-      request.files.add(file);
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("성공했습니다");
+      print(response.data);
+      FlutterDialog1(userdata);
+      FlutterDialog1(userdata);
+    }
+    print(response.toString());
+  }
 
-      var response = await request.send();
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        print('요청 성공');
-        FlutterDialog1(userData);
-        FlutterDialog1(userData);
-        // 성공적인 응답을 받았을 때 실행할 작업을 추가하세요
-      } else {
-        print('요청 실패');
-        // 실패한 경우에 대한 예외 처리 또는 오류 메시지 표시 등을 수행하세요
-      }
-    } catch (e) {
-      print('요청 중 오류 발생: $e');
-      // 오류 처리를 수행하세요
+  Future<void> postRequest(UserData userdata, File file) async {
+    print("postRequest 시작");
+    String url = 'http://43.200.19.51:3034/user/signup/request';
+
+    Map<String, dynamic> body = {
+      "nickname": userdata.userName,
+      "userId": userdata.userId,
+      "latitude": userdata.lat,
+      "longitude": userdata.lon,
+      "address": userdata.useraddress,
+    };
+
+    var parsingData = await sendPostRequest(url, body, context);
+
+    print(parsingData);
+    if (parsingData != null) {
+      if (parsingData is String) {
+        // ignore: avoid_print
+        print('연동에 성공했어요!');
+        uploadImage(userdata, file);
+        // ignore: use_build_context_synchronously
+      } else {}
+    } else {
+      print("오류 발생");
     }
   }
 
@@ -443,9 +415,7 @@ class _PictureState extends State<Picture> {
                       ),
                     ),
                   );
-                  print("하이");
-
-                  await uploadImage(userImage, userData);
+                  await postRequest(userData, userImage);
 
                   // ignore: use_build_context_synchronously
                   // Navigator.push(context,
