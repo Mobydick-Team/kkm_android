@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kkm/data/http_client.dart';
 import 'package:kkm/provider/user.dart';
+import 'package:kkm/screens/bottom/bottom.dart';
 import 'package:kkm/screens/selectct.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -87,6 +88,105 @@ class _WriteState extends State<Write> with WidgetsBindingObserver {
 
   final FocusNode focusNode = FocusNode();
 
+  void FlutterDialog(var userdata) {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: const Color(0xffEEEEEE),
+                  size: 40.w,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("게시물 작성을 ",
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                    Text(
+                      "완료",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.sp,
+                          color: const Color(0xff536DFE)),
+                    ),
+                    Text("하시겠어요?",
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                SizedBox(height: 7.h),
+                Text(
+                  "게시물 작성 후 수정이 가능해요",
+                  style: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff8E8E8F)),
+                ),
+              ],
+            ),
+            titlePadding: EdgeInsets.only(top: 13.h),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffEEEEEE),
+                        elevation: 0.0,
+                        minimumSize: Size(110.w, 36.h),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.r))),
+                    child: Text(
+                      "취소",
+                      style: TextStyle(
+                          fontSize: 14.sp, color: const Color(0xff757575)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(
+                    width: 7.w,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff536DFE),
+                        minimumSize: Size(110.w, 36.h),
+                        elevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.r))),
+                    child: Text(
+                      "완료",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.white),
+                    ),
+                    onPressed: () async {
+                      await postrequest(userdata, context);
+                    },
+                  ),
+                ],
+              )
+            ],
+          );
+        });
+  }
+
   Future<void> postrequest(UserData userdata, BuildContext context) async {
     String url = 'http://43.200.19.51:3034/post';
     var dio = Dio();
@@ -124,6 +224,9 @@ class _WriteState extends State<Write> with WidgetsBindingObserver {
       if (parsingData is String) {
         // ignore: avoid_print
         print('연동에 성공했어요!');
+
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Bottombar()));
         // ignore: use_build_context_synchronously
       } else {}
     } else {
@@ -601,8 +704,8 @@ class _WriteState extends State<Write> with WidgetsBindingObserver {
                                 writing3 == true &&
                                 writing4 == true &&
                                 category != 0
-                            ? () async {
-                                await postrequest(userData, context);
+                            ? () {
+                                FlutterDialog(userData);
                               }
                             : null,
                         style: ElevatedButton.styleFrom(
