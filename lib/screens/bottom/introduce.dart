@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kkm/data/http_client.dart';
+import 'package:kkm/model/clothes.dart';
 import 'package:kkm/screens/bottom/introduce/history.dart';
 import 'package:kkm/screens/bottom/introduce/myclothes.dart';
 import 'package:kkm/screens/bottom/introduce/review.dart';
@@ -15,6 +17,38 @@ class Introduce extends StatefulWidget {
 }
 
 class _IntroduceState extends State<Introduce> {
+  final List<ClothesList> clothesList = <ClothesList>[];
+  String name = '';
+  String image = '';
+  String address = '';
+  int tradeCount = 0;
+  int reviewCount = 0;
+  int kkm = 0;
+
+  void getrequest(var userData) async {
+    try {
+      String url = 'http://43.200.19.51:3034/user/mypage';
+      Map<String, String> header = {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer ${userData.accessToken}",
+      };
+      var parsingData = await sendGetRequest(url, header, context);
+      print(parsingData);
+      if (parsingData != null) {
+        setState(() {
+          name = parsingData['name'];
+          image = parsingData['profileImage'];
+          address = parsingData['address'];
+          tradeCount = parsingData['tradeCount'];
+          reviewCount = parsingData['reviewCount'];
+          kkm = parsingData['kkm'];
+        });
+      } else {}
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
