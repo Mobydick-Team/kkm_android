@@ -100,7 +100,7 @@ class _HomePageState extends State<Home> {
           parsingData['list'][i]['price'],
           parsingData['list'][i]['deposit'],
           parsingData['list'][i]['location'],
-          parsingData['list'][i]['status'] == "ACTIVE" ? false : true,
+          parsingData['list'][i]['status'] == "ACTIVE" ? true : false,
           parsingData['list'][i]['like'],
         ));
       }
