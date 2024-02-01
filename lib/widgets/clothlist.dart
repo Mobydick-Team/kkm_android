@@ -48,10 +48,10 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                     width: 150.w,
                     height: 190.h,
                     decoration: BoxDecoration(
-                        image: const DecorationImage(
+                        image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: AssetImage(
-                              "images/cat.jpg",
+                            image: NetworkImage(
+                              clothes[i].image[0],
                             )),
                         border: Border.all(width: 0.0),
                         borderRadius: BorderRadius.all(Radius.circular(5.r))),
@@ -88,20 +88,30 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.account_circle,
-                                      size: 16.h,
-                                      color: Colors.white,
+                                    Container(
+                                      width: 16.w, // 원의 너비
+                                      height: 16.h, // 원의 높이
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              clothes[i].profileImage),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 2.w,
                                     ),
-                                    Text(
-                                      clothes[i].userName,
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 3.h),
+                                      child: Text(
+                                        clothes[i].userName,
+                                        style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -177,7 +187,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                   fontSize: 10.sp, color: Colors.black),
                             ),
                             SizedBox(
-                              width: 5.13.w,
+                              width: 1.w,
                             ),
                             Text(
                               "${clothes[i].deposit}원",
@@ -202,7 +212,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                   fontSize: 10.sp, color: Colors.black),
                             ),
                             SizedBox(
-                              width: 5.13.w,
+                              width: 2.w,
                             ),
                             Text(
                               "${clothes[i].rentalfee}원",
@@ -241,10 +251,10 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                               width: 150.w,
                               height: 190.h,
                               decoration: BoxDecoration(
-                                  image: const DecorationImage(
+                                  image: DecorationImage(
                                       fit: BoxFit.fill,
-                                      image: AssetImage(
-                                        "images/cat.jpg",
+                                      image: NetworkImage(
+                                        clothes[i + 1].image[0],
                                       )),
                                   border: Border.all(width: 0.0),
                                   borderRadius:
@@ -288,20 +298,33 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Icon(
-                                                Icons.account_circle,
-                                                size: 16.h,
-                                                color: Colors.white,
+                                              Container(
+                                                width: 16.w, // 원의 너비
+                                                height: 16.h, // 원의 높이
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        clothes[i + 1]
+                                                            .profileImage),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
                                               SizedBox(
                                                 width: 2.w,
                                               ),
-                                              Text(
-                                                clothes[i + 1].userName,
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    bottom: 3.h),
+                                                child: Text(
+                                                  clothes[i + 1].userName,
+                                                  style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.white),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -382,7 +405,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                             color: Colors.black),
                                       ),
                                       SizedBox(
-                                        width: 5.13.w,
+                                        width: 2.w,
                                       ),
                                       Text(
                                         "${clothes[i + 1].deposit}원",
@@ -408,7 +431,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                             color: Colors.black),
                                       ),
                                       SizedBox(
-                                        width: 5.13.w,
+                                        width: 2.w,
                                       ),
                                       Text(
                                         "${clothes[i + 1].rentalfee}원",
@@ -426,6 +449,8 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                         ),
                       ),
                     )
+
+              //여기까지
               : InkWell(
                   onTap: () {
                     Navigator.push(
@@ -442,10 +467,10 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                           width: 150.w,
                           height: 190.h,
                           decoration: BoxDecoration(
-                              image: const DecorationImage(
+                              image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage(
-                                    "images/cat.jpg",
+                                  image: NetworkImage(
+                                    clothes[i + 1].image[0],
                                   )),
                               border: Border.all(width: 0.0),
                               borderRadius:
@@ -487,20 +512,32 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.account_circle,
-                                            size: 16.h,
-                                            color: Colors.white,
+                                          Container(
+                                            width: 16.w, // 원의 너비
+                                            height: 16.h, // 원의 높이
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    clothes[i + 1]
+                                                        .profileImage),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 2.w,
                                           ),
-                                          Text(
-                                            clothes[i + 1].userName,
-                                            style: TextStyle(
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(bottom: 3.h),
+                                            child: Text(
+                                              clothes[i + 1].userName,
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -576,7 +613,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                         fontSize: 10.sp, color: Colors.black),
                                   ),
                                   SizedBox(
-                                    width: 5.13.w,
+                                    width: 2.w,
                                   ),
                                   Text(
                                     "${clothes[i + 1].deposit}원",
@@ -601,7 +638,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                                         fontSize: 10.sp, color: Colors.black),
                                   ),
                                   SizedBox(
-                                    width: 5.13.w,
+                                    width: 2.w,
                                   ),
                                   Text(
                                     "${clothes[i + 1].rentalfee}원",
@@ -618,7 +655,7 @@ List<Widget> makeClothes(BuildContext context, List<ClothesList> clothes) {
                       ],
                     ),
                   ),
-                )
+                ),
         ],
       ),
     ));
